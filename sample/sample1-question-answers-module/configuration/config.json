@@ -1,0 +1,12 @@
+{
+  "express": {
+    "port": 3001,
+    "bodyParser": "json"
+  },
+  "odm": {
+    "driver": "mongodb",
+    "connection": {
+      "url": "mongodb://localhost:27017/microframework-samples"
+    }
+  }
+}

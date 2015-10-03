@@ -1,0 +1,52 @@
+{
+  "name": "microframework",
+  "version": "0.0.1",
+  "description": "Micro framework is a bundle of express.js, mongodb ODM, dependancy injection framework and restful controllers for your apps using Typescript",
+  "license": "Apache-2.0",
+  "readmeFilename": "README.md",
+  "author": {
+    "name": "Umed Khudoiberdiev",
+    "email": "zarrhost@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PLEEROCK/microframework.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PLEEROCK/microframework/issues"
+  },
+  "tags": [
+    "microframework",
+    "typescript",
+    "typescript-framework"
+  ],
+  "typings": "./microframework.d.ts",
+  "typescript": {
+    "definitions": [
+      "microframework.d.ts"
+    ]
+  },
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "mongodb": "^2.0.45",
+    "type-controllers": "^0.0.1",
+    "typedi": "^0.0.1",
+    "typeodm": "^0.0.1"
+  },
+  "devDependencies": {
+    "del": "^2.0.2",
+    "dts-generator": "^1.5.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1",
+    "gulp-exec": "^2.1.1",
+    "gulp-plumber": "^1.0.1",
+    "gulp-typescript": "^2.9.0",
+    "run-sequence": "^1.1.4",
+    "tsd": "^0.6.4",
+    "typescript": "^1.6.2"
+  },
+  "scripts": {
+    "postversion": "./node_modules/.bin/gulp package"
+  }
+}
