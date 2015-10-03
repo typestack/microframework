@@ -31,8 +31,8 @@
     "express": "^4.13.3",
     "mongodb": "^2.0.45",
     "type-controllers": "^0.0.1",
-    "typedi": "^0.0.1",
-    "typeodm": "^0.0.2"
+    "typedi": "^0.0.2",
+    "typeodm": "^0.0.1"
   },
   "devDependencies": {
     "del": "^2.0.2",
