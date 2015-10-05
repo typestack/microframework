@@ -7,6 +7,7 @@ import {ConnectionOptions} from "typeodm/connection/ConnectionOptions";
 import {ConnectionManager} from "typeodm/connection/ConnectionManager";
 import {MongodbDriver} from "typeodm/driver/MongodbDriver";
 import {MicroFrameworkConfig} from "./MicroFrameworkConfig";
+import {Server} from "http";
 
 /**
  * MicroFramework is a bundle of express.js, mongodb ODM, dependancy injection framework and restful controllers for
@@ -28,6 +29,7 @@ export class MicroFrameworkRunner {
 
     private _express: Express;
     private _odmConnectionManager: ConnectionManager;
+    private _expressServer: Server;
 
     // -------------------------------------------------------------------------
     // Constructor
@@ -42,6 +44,10 @@ export class MicroFrameworkRunner {
 
     get express(): Express {
         return this._express;
+    }
+
+    get expressServer(): Server {
+        return this._expressServer;
     }
 
     get odmConnectionManager(): ConnectionManager {
@@ -61,7 +67,11 @@ export class MicroFrameworkRunner {
 
         return Promise.all(promises)
             .then(() => this.setupControllers())
-            .then(() => { });
+            .then(() => { })
+            .catch(err => {
+                if (this._expressServer) this._expressServer.close();
+                throw err;
+            });
     }
 
     // -------------------------------------------------------------------------
@@ -109,7 +119,7 @@ export class MicroFrameworkRunner {
                     throw new Error('Incorrect body parser type (' + bodyParserType + ') is specified in the microframework configuration');
             }
         }
-        this._express.listen(port);
+        this._expressServer = this._express.listen(port);
     }
 
     private setupControllers() {

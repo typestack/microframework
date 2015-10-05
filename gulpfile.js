@@ -60,6 +60,26 @@ gulp.task('toes5', function () {
         .pipe(gulp.dest('./built/es5'));
 });
 
+gulp.task('copy-sample1-resources', function() {
+    return gulp.src(['./sample/sample1-question-answers-module/configuration/*'])
+        .pipe(gulp.dest('./built/es5/sample/sample1-question-answers-module/configuration'));
+});
+
+gulp.task('run-sample1', function() {
+    return gulp.src('./')
+        .pipe(exec('node ./built/es5/sample/sample1-question-answers-module/app.js'))
+        .pipe(exec.reporter());
+});
+
+gulp.task('run:sample1', function (cb) {
+    return runSequence(
+        'build',
+        ['copy-sample1-resources', 'toes5'],
+        'run-sample1',
+        cb
+    );
+});
+
 gulp.task('build', function(cb) {
     return runSequence(
         'clean',

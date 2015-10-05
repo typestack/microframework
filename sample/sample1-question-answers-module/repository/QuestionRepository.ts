@@ -3,6 +3,7 @@ import {Repository} from "typeodm/repository/Repository";
 import {Connection} from "typeodm/connection/Connection";
 import {Question} from "../document/Question";
 import {ConnectionManager} from "typeodm/connection/ConnectionManager";
+import {Validator} from "t-validator/Validator";
 
 @Resolve()
 export class QuestionRepository {
@@ -12,13 +13,15 @@ export class QuestionRepository {
 	// -------------------------------------------------------------------------
 
 	private repository: Repository<Question>;
+	private validator: Validator;
 
 	// -------------------------------------------------------------------------
 	// Constructor
 	// -------------------------------------------------------------------------
 
-	constructor(connectionManager: ConnectionManager) {
+	constructor(connectionManager: ConnectionManager, validator: Validator) {
 		this.repository = connectionManager.getConnection().getRepository<Question>(Question);
+		this.validator  = validator;
 	}
 
 	// -------------------------------------------------------------------------
@@ -34,6 +37,10 @@ export class QuestionRepository {
 	}
 
 	save(question: Question): Promise<Question> {
+		let validationErrors = this.validator.validate(Question, question);
+		if (validationErrors.length > 0)
+			throw new Error('Validation error! ' + JSON.stringify(validationErrors));
+
 		return this.repository.persist(question);
 	}
 
