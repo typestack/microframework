@@ -1,6 +1,6 @@
 # MicroFramework
 
-Micro framework is a bundle of [express.js][1], [Mongodb ODM][2], [dependancy injection framework][3] and [restful controllers][4] for 
+Micro framework is a bundle of [express.js][1], [Mongodb ODM][2], [validator][5], [dependancy injection framework][3] and [restful controllers][4] for 
 your apps using Typescript.
 
 ## Usage
@@ -62,3 +62,4 @@ Take a look on samples in `./sample` for more examples of usages.
 [2]: https://github.com/PLEEROCK/typeodm
 [3]: https://github.com/PLEEROCK/typedi
 [4]: https://github.com/PLEEROCK/type-controllers
+[5]: https://github.com/PLEEROCK/t-validator
