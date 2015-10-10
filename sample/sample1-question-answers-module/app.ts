@@ -1,7 +1,7 @@
 import {MicroFrameworkConfig} from "../../src/MicroFrameworkConfig";
 import {MicroFrameworkRunner} from "../../src/MicroFrameworkRunner";
 
-new MicroFrameworkRunner(__dirname, require('./configuration/config.json'))
+new MicroFrameworkRunner({ baseDirectory: __dirname })
     .run()
     .then(result => console.log('Module is running. Open localhost:3001'))
     .catch(error => console.error('Error: ', error));

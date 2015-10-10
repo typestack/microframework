@@ -1,4 +1,5 @@
 import {Resolve} from "typedi/Resolve"
+import {Config} from "t-configurator/Annotations"
 import {Repository} from "typeodm/repository/Repository";
 import {Connection} from "typeodm/connection/Connection";
 import {Question} from "../document/Question";
@@ -14,14 +15,16 @@ export class QuestionRepository {
 
 	private repository: Repository<Question>;
 	private validator: Validator;
+	private onPage: number;
 
 	// -------------------------------------------------------------------------
 	// Constructor
 	// -------------------------------------------------------------------------
 
-	constructor(connectionManager: ConnectionManager, validator: Validator) {
+	constructor(connectionManager: ConnectionManager, validator: Validator, @Config('onPage') onPage: number) {
 		this.repository = connectionManager.getConnection().getRepository<Question>(Question);
-		this.validator  = validator;
+		this.validator = validator;
+		this.onPage = onPage;
 	}
 
 	// -------------------------------------------------------------------------

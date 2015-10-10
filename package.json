@@ -29,11 +29,14 @@
   "dependencies": {
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
+    "fs": "0.0.2",
     "mongodb": "^2.0.45",
+    "path": "^0.12.7",
+    "t-configurator": "^0.0.3",
+    "t-validator": "^0.0.2",
     "type-controllers": "^0.0.1",
-    "typedi": "^0.0.2",
-    "typeodm": "^0.0.1",
-    "t-validator": "^0.0.2"
+    "typedi": "^0.0.4",
+    "typeodm": "^0.0.1"
   },
   "devDependencies": {
     "del": "^2.0.2",

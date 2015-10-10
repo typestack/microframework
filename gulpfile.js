@@ -48,7 +48,9 @@ gulp.task('build-package-generate-dts', function () {
         baseDir: './src',
         files: [
             './src/MicroFramework.ts',
-            './src/MicroFrameworkRunner.ts'
+            './src/MicroFrameworkRunner.ts',
+            './src/MicroFrameworkRunOptions.ts',
+            './src/MicroFrameworkUtils.ts'
         ],
         out: './built/package/' + name + '.d.ts'
     });

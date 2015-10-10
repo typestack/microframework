@@ -12,7 +12,7 @@ export interface MicroFrameworkConfig {
         bodyParser?: string, // "raw", "text", "urlencoded" or "json"
         bodyParserOptions?: any
     }
-    odm?: {
+    typeodm?: {
         driver: string, // only "mongodb" for now
         documentsDirectories?: string[];
         subscribersDirectories?: string[];
