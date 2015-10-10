@@ -10,22 +10,10 @@ Create your main application entry point `app.ts` and put there:
 
 ```typescript
 import {MicroFrameworkConfig} from "microframework/MicroFrameworkConfig";
-import {MicroFrameworkRunner} from "microframework/MicroFrameworkRunner";
+import {MicroFrameworkBootstrapper} from "microframework/MicroFrameworkBootstrapper";
 
-let configuration = {
-    express: {
-        bodyParser: "json"
-    },
-    odm: {
-        driver: "mongodb",
-        connection: {
-            url: "mongodb://localhost:27017/microframework-samples"
-        }
-    }
-}; // you can also store this configuration in separate json file and require it
-
-new MicroFrameworkRunner(__dirname, configuration)
-    .run()
+new MicroFrameworkBootstrapper({ baseDirectory: __dirname })
+    .bootstrap()
     .then(result => console.log('Express app is running. Open localhost:3000/questions'))
     .catch(error => console.error('Error: ', error));
 ```
