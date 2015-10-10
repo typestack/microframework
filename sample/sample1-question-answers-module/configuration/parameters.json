@@ -1,5 +1,5 @@
 {
   "onPage": 200,
-  "express.port": 3002,
+  "express.port": 3001,
   "typeodm.url": "mongodb://localhost:27017/microframework-samples"
 }
