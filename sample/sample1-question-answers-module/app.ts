@@ -1,8 +1,8 @@
 import {MicroFrameworkConfig} from "../../src/MicroFrameworkConfig";
-import {MicroFrameworkRunner} from "../../src/MicroFrameworkRunner";
+import {MicroFrameworkBootstrapper} from "../../src/MicroFrameworkBootstrapper";
 
-new MicroFrameworkRunner({ baseDirectory: __dirname })
-    .run()
+let microframework = new MicroFrameworkBootstrapper({ baseDirectory: __dirname })
+    .bootstrap()
     .then(result => console.log('Module is running. Open localhost:3001'))
     .catch(error => console.error('Error: ', error));
 

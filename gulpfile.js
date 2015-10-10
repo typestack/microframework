@@ -47,8 +47,8 @@ gulp.task('build-package-generate-dts', function () {
         name: name,
         baseDir: './src',
         files: [
-            './src/MicroFramework.ts',
-            './src/MicroFrameworkRunner.ts',
+            './src/MicroFrameworkBootstrapper.ts',
+            './src/MicroFrameworkConfig.ts',
             './src/MicroFrameworkRunOptions.ts',
             './src/MicroFrameworkUtils.ts'
         ],
@@ -76,8 +76,21 @@ gulp.task('run-sample1', function() {
 gulp.task('run:sample1', function (cb) {
     return runSequence(
         'build',
-        ['copy-sample1-resources', 'toes5'],
+        'copy-sample1-resources',
         'run-sample1',
+        cb
+    );
+});
+gulp.task('run-sample2', function() {
+    return gulp.src('./')
+        .pipe(exec('node ./built/es5/sample/sample2-partial-bootstrap/app.js'))
+        .pipe(exec.reporter());
+});
+
+gulp.task('run:sample2', function (cb) {
+    return runSequence(
+        'build',
+        'run-sample2',
         cb
     );
 });

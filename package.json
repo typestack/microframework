@@ -1,6 +1,6 @@
 {
   "name": "microframework",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "description": "Micro framework is a bundle of express.js, mongodb ODM, validator, dependancy injection framework and restful controllers for your apps using Typescript",
   "license": "Apache-2.0",
   "readmeFilename": "README.md",
@@ -32,7 +32,7 @@
     "fs": "0.0.2",
     "mongodb": "^2.0.45",
     "path": "^0.12.7",
-    "t-configurator": "^0.0.4",
+    "t-configurator": "^0.0.5",
     "t-validator": "^0.0.2",
     "type-controllers": "^0.0.1",
     "typedi": "^0.0.4",
