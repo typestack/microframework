@@ -11,6 +11,7 @@ import {MicroFrameworkConfig} from "./MicroFrameworkConfig";
 import {Server} from "http";
 import {MicroFrameworkRunOptions} from "./MicroFrameworkRunOptions";
 import {MicroFrameworkUtils} from "./MicroFrameworkUtils";
+import {Configurator} from "t-configurator/Configurator";
 
 export enum RunOptions {
     EXPRESS = 1,
@@ -75,6 +76,10 @@ export class MicroFrameworkBootstrapper {
         return this._odmConnectionManager;
     }
 
+    get configurator(): Configurator {
+        return defaultConfigurator;
+    }
+
     // -------------------------------------------------------------------------
     // Public Methods
     // -------------------------------------------------------------------------
@@ -114,7 +119,7 @@ export class MicroFrameworkBootstrapper {
         this._odmConnectionManager.container = Container;
 
         if (this.configuration.typeodm.driver === 'mongodb')
-            this._odmConnectionManager.addConnection(new MongodbDriver(require('mongodb')));
+            this._odmConnectionManager.addConnection(new MongodbDriver());
 
         this._odmConnectionManager.importDocumentsFromDirectories(this.getOdmDocumentDirectories());
         this._odmConnectionManager.importSubscribersFromDirectories(this.getOdmSubscriberDirectories());
