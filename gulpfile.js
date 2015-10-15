@@ -3,7 +3,7 @@ var runSequence = require('run-sequence');
 var del = require('del');
 var plumber = require('gulp-plumber');
 var ts = require('gulp-typescript');
-var exec = require('gulp-exec');
+var shell = require('gulp-shell');
 var babel = require('gulp-babel');
 
 gulp.task('clean', function (cb) {
@@ -23,11 +23,12 @@ gulp.task('compile', function() {
 });
 
 gulp.task('tsd', function() {
-    return gulp.src('./')
-        .pipe(exec('./node_modules/.bin/tsd install'))
-        .pipe(exec('./node_modules/.bin/tsd rebundle'))
-        .pipe(exec('./node_modules/.bin/tsd link'))
-        .pipe(exec.reporter());
+    return gulp.src('*.js', { read: false })
+        .pipe(shell([
+            './node_modules/.bin/tsd install',
+            './node_modules/.bin/tsd rebundle',
+            './node_modules/.bin/tsd link'
+        ]));
 });
 
 gulp.task('build-package-copy-src', function() {
@@ -41,17 +42,28 @@ gulp.task('build-package-copy-files', function() {
 });
 
 gulp.task('build-package-generate-dts', function () {
+    var fs = require('fs');
+    function getFiles (dir, files){
+        files = files || [];
+        var filesInDir = fs.readdirSync(dir);
+        for (var i in filesInDir){
+            var name = dir + '/' + filesInDir[i];
+            if (fs.statSync(name).isDirectory()){
+                getFiles(name, files);
+            } else {
+                files.push(name);
+            }
+        }
+        return files;
+    }
+
     var dtsGenerator = require('dts-generator');
     var name = require('./package.json').name;
+    var files = getFiles('./src');
     dtsGenerator.generate({
         name: name,
         baseDir: './src',
-        files: [
-            './src/MicroFrameworkBootstrapper.ts',
-            './src/MicroFrameworkConfig.ts',
-            './src/MicroFrameworkRunOptions.ts',
-            './src/MicroFrameworkUtils.ts'
-        ],
+        files: files,
         out: './built/package/' + name + '.d.ts'
     });
 });
@@ -68,9 +80,8 @@ gulp.task('copy-sample1-resources', function() {
 });
 
 gulp.task('run-sample1', function() {
-    return gulp.src('./')
-        .pipe(exec('node ./built/es5/sample/sample1-question-answers-module/app.js'))
-        .pipe(exec.reporter());
+    return gulp.src('*.js', { read: false })
+        .pipe(shell(['node ./built/es5/sample/sample1-question-answers-module/app.js']));
 });
 
 gulp.task('run:sample1', function (cb) {
@@ -82,9 +93,8 @@ gulp.task('run:sample1', function (cb) {
     );
 });
 gulp.task('run-sample2', function() {
-    return gulp.src('./')
-        .pipe(exec('node ./built/es5/sample/sample2-partial-bootstrap/app.js'))
-        .pipe(exec.reporter());
+    return gulp.src('*.js', { read: false })
+        .pipe(shell(['node ./built/es5/sample/sample2-partial-bootstrap/app.js']));
 });
 
 gulp.task('run:sample2', function (cb) {
@@ -97,8 +107,6 @@ gulp.task('run:sample2', function (cb) {
 
 gulp.task('build', function(cb) {
     return runSequence(
-        'clean',
-        'tsd',
         'compile',
         'toes5',
         cb
@@ -113,4 +121,11 @@ gulp.task('package', function(cb) {
     );
 });
 
-gulp.task('default', ['build']);
+gulp.task('default', function(cb) {
+    return runSequence(
+        'clean',
+        'tsd',
+        'build',
+        cb
+    );
+});

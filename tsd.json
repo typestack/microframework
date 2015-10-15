@@ -20,21 +20,6 @@
     },
     "sinon/sinon.d.ts": {
       "commit": "7a3ca1f0b8a0960af9fc1838f3234cc9d6ce0645"
-    },
-    "mockery/mockery.d.ts": {
-      "commit": "6f6e5c7dd9effe21fee14eb65fe340ecbbc8580a"
-    },
-    "express/express.d.ts": {
-      "commit": "ebc69904eb78f94030d5d517b42db20867f679c0"
-    },
-    "body-parser/body-parser.d.ts": {
-      "commit": "ebc69904eb78f94030d5d517b42db20867f679c0"
-    },
-    "serve-static/serve-static.d.ts": {
-      "commit": "ebc69904eb78f94030d5d517b42db20867f679c0"
-    },
-    "mime/mime.d.ts": {
-      "commit": "ebc69904eb78f94030d5d517b42db20867f679c0"
     }
   }
 }

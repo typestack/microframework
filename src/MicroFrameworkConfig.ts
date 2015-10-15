@@ -1,24 +1,21 @@
-import {ConnectionOptions} from "typeodm/connection/ConnectionOptions";
-
 /**
- * Configuration based on that micro framework gonna config its components.
+ * Microframework configuration.
  */
 export interface MicroFrameworkConfig {
-    framework?: {
 
-    },
-    express?: {
-        port?: number,
-        bodyParser?: string, // "raw", "text", "urlencoded" or "json"
-        bodyParserOptions?: any
-    },
-    typeodm?: {
-        driver: string, // only "mongodb" for now
-        documentsDirectories?: string[];
-        subscribersDirectories?: string[];
-        connection: ConnectionOptions
-    },
-    controllers?: {
-        controllerDirectories?: string[]
-    }
+    /**
+     * List of configuration files that will be loaded to get configurations from it.
+     */
+    configurationFiles?: string[]; // default is './configuration/config.json'
+
+    /**
+     * List of parameter files that will be loaded to get parameters from it.
+     */
+    parametersFiles?: string[]; // defaults is './configuration/parameters.json'
+
+    /**
+     * Current environment where framework is running right now.
+     */
+    environment?: string;
+
 }
