@@ -1,6 +1,7 @@
 # MicroFramework
 
-Micro framework integrates popular libraries like [express.js][1], [Mongodb ODM][2], [t-validator][5], [t-controllers][4]
+Micro framework integrates popular libraries like [express.js][1], [Mongodb ODM][2], [t-validator][5],
+[t-controllers][4], [t-event-dispatcher][7]
 and others for use in your Typescript application. Framework ships by default [dependancy injection framework][3] and
 [configuration framework][6] to make all modules to work like a sh
 
@@ -12,11 +13,11 @@ Please consider it before using this library.
 ## Quick Start
 
 You use framework with one or more the available modules. Lets say you want to use [express.js][1], [Mongodb ODM][2],
-[validator][5] and [restful controllers][4].
+[validator][5], [event-dispatcher][7] and [restful controllers][4].
 
 1. Install npm modules: 
 
-`npm install microframework microframework-express microframework-typeodm microframework-t-controllers microframework-t-validator --save`
+`npm install microframework microframework-express microframework-typeodm microframework-t-controllers microframework-t-validator microframework-t-event-dispatcher --save`
 
 2. Create `app.ts`:
     
@@ -26,13 +27,15 @@ You use framework with one or more the available modules. Lets say you want to u
     import {TControllersModule} from "microframework-t-controllers/TControllersModule";
     import {TypeOdmModule} from "microframework-typeodm/TypeOdmModule";
     import {TValidatorModule} from "microframework-t-validator/TValidatorModule";
+    import {TEventDispatcherModule} from "microframework-t-event-dispatcher/TEventDispatcherModule";
     
     new MicroFrameworkBootstrapper({ baseDirectory: __dirname })
         .registerModules([
             new ExpressModule(),
             new TypeOdmModule(),
             new TControllersModule(),
-            new TValidatorModule()
+            new TValidatorModule(),
+            new TEventDispatcherModule()
         ])
         .bootstrap()
         .then(result => console.log('Module is running. Open localhost:3000'))
@@ -85,6 +88,7 @@ You use framework with one or more the available modules. Lets say you want to u
 * [microframework-t-typeodm](https://github.com/PLEEROCK/microframework-t-typeodm) - integration with [TypeODM][2]
 * [microframework-t-controllers](https://github.com/PLEEROCK/microframework-t-controllers) - integration with [t-controllers][4]
 * [microframework-t-validator](https://github.com/PLEEROCK/microframework-t-validator) - integration with [t-validator][5]
+* [microframework-t-event-dispatcher](https://github.com/PLEEROCK/microframework-t-event-dispatcher) - integration with [t-event-dispatcher][7]
 
 ## Todos
 
@@ -98,3 +102,4 @@ You use framework with one or more the available modules. Lets say you want to u
 [4]: https://github.com/PLEEROCK/t-controllers
 [5]: https://github.com/PLEEROCK/t-validator
 [6]: https://github.com/PLEEROCK/t-configurator
+[7]: https://github.com/PLEEROCK/t-event-dispatcher
