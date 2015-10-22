@@ -1,6 +1,5 @@
 import * as fs from "fs";
 import {Container} from "typedi/Container";
-import {defaultConfigurator} from "t-configurator/Configurator";
 import {MicroFrameworkConfig} from "./MicroFrameworkConfig";
 import {MicroFrameworkSettings} from "./MicroFrameworkSettings";
 import {MicroFrameworkUtils} from "./MicroFrameworkUtils";
@@ -28,7 +27,9 @@ export class ModuleRegistry {
     // Constructor
     // -------------------------------------------------------------------------
 
-    constructor(private settings: MicroFrameworkSettings) {
+    constructor(private settings: MicroFrameworkSettings,
+                private configuration: MicroFrameworkConfig,
+                private configurator: Configurator) {
     }
 
     // -------------------------------------------------------------------------
@@ -79,13 +80,13 @@ export class ModuleRegistry {
             mod.init(config, this.findConfigurationForModule(mod), this.findDependantModulesForModule(mod));
         });
 
-        return Promise.all(this.modules.map(mod => mod.onBootstrap()))
-            .then(() => Promise.all(this.modules.map(module => module.afterBootstrap ? module.afterBootstrap() : undefined)))
-            .then(() => {})
-            .catch(err => {
-                return Promise.all(this.modules.map(mod => mod.onShutdown()))
-                    .then(function() { throw err; });
+        if (this.configuration.bootstrap && this.configuration.bootstrap.timeout > 0) {
+            return new Promise<void>((ok, fail) => {
+                setTimeout(() => ok(this.bootstrapModules()), this.configuration.bootstrap.timeout);
             });
+        }
+
+        return this.bootstrapModules();
     }
 
     /**
@@ -100,11 +101,20 @@ export class ModuleRegistry {
     // Private Methods
     // -------------------------------------------------------------------------
 
+    private bootstrapModules(): Promise<void> {
+        return Promise.all(this.modules.map(mod => mod.onBootstrap()))
+            .then(() => Promise.all(this.modules.map(module => module.afterBootstrap ? module.afterBootstrap() : undefined)))
+            .then(() => {})
+            .catch(err => {
+                return this.shutdownAllModules().then(function() { throw err; });
+            });
+    }
+
     private findConfigurationForModule(module: Module): any {
         if (!module.getConfigurationName || !module.getConfigurationName())
             return undefined;
 
-        let config = defaultConfigurator.get(module.getConfigurationName());
+        let config = this.configurator.get(module.getConfigurationName());
         if (!config && module.isConfigurationRequired && module.isConfigurationRequired())
             throw new ModuleConfigurationMissingException(module.getName());
 

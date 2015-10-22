@@ -5,6 +5,7 @@ import {Container} from "typedi/Container";
 import {Configurator} from "t-configurator/Configurator";
 import {Module} from "./Module";
 import {defaultConfigurator} from "t-configurator/Configurator";
+import {MicroFrameworkConfig} from "./MicroFrameworkConfig";
 
 /**
  * This class runs microframework and its specified modules.
@@ -16,14 +17,16 @@ export class MicroFrameworkBootstrapper {
     // -------------------------------------------------------------------------
 
     private modulesRegistry: ModuleRegistry;
+    private configuration: MicroFrameworkConfig;
 
     // -------------------------------------------------------------------------
     // Constructor
     // -------------------------------------------------------------------------
 
     constructor(private settings: MicroFrameworkSettings) {
-        this.modulesRegistry = new ModuleRegistry(settings);
         new ConfigLoader(settings).load();
+        this.configuration = defaultConfigurator.get('framework');
+        this.modulesRegistry = new ModuleRegistry(settings, this.configuration, defaultConfigurator);
     }
 
     // -------------------------------------------------------------------------

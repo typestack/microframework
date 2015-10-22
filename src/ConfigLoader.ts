@@ -22,17 +22,10 @@ export class ConfigLoader {
     public static DEFAULT_PARAMETERS_FILE = 'parameters.json';
 
     // -------------------------------------------------------------------------
-    // Properties
-    // -------------------------------------------------------------------------
-
-    private configuration: MicroFrameworkConfig;
-
-    // -------------------------------------------------------------------------
     // Constructor
     // -------------------------------------------------------------------------
 
     constructor(private settings: MicroFrameworkSettings) {
-        this.configuration = defaultConfigurator.get('framework');
     }
 
     // -------------------------------------------------------------------------
@@ -103,24 +96,24 @@ export class ConfigLoader {
     }
 
     private getEnvironment(): string {
-        if (!this.configuration || !this.configuration.environment)
+        if (!this.settings.environment)
             return process.env.NODE_ENV;
 
-        return this.configuration.environment;
+        return this.settings.environment;
     }
 
     private getConfigFiles(): string[] {
-        if (!this.configuration || !this.configuration.configurationFiles)
+        if (!this.settings.configurationFiles)
             return [this.settings.baseDirectory + '/' + ConfigLoader.DEFAULT_CONFIG_DIRECTORY + '/' + ConfigLoader.DEFAULT_CONFIG_FILE];
 
-        return this.configuration.configurationFiles;
+        return this.settings.configurationFiles;
     }
 
     private getParameterFiles(): string[] {
-        if (!this.configuration || !this.configuration.parametersFiles)
+        if (!this.settings.parametersFiles)
             return [this.settings.baseDirectory + '/' + ConfigLoader.DEFAULT_CONFIG_DIRECTORY + '/' + ConfigLoader.DEFAULT_PARAMETERS_FILE];
 
-        return this.configuration.parametersFiles;
+        return this.settings.parametersFiles;
     }
 
 }

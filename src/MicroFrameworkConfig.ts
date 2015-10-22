@@ -4,18 +4,19 @@
 export interface MicroFrameworkConfig {
 
     /**
-     * List of configuration files that will be loaded to get configurations from it.
+     * Indicates is debug mode is enabled. In debug mode some extra information and logs can be exposed to the developer.
      */
-    configurationFiles?: string[]; // default is './configuration/config.json'
+    debugMode?: boolean;
 
     /**
-     * List of parameter files that will be loaded to get parameters from it.
+     * Framework bootstrap configuration.
      */
-    parametersFiles?: string[]; // defaults is './configuration/parameters.json'
+    bootstrap?: {
 
-    /**
-     * Current environment where framework is running right now.
-     */
-    environment?: string;
+        /**
+         * Number of milliseconds to wait before framework will bootstrap all modules.
+         */
+        timeout: number;
+    };
 
 }
