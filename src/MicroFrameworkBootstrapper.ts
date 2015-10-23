@@ -70,8 +70,8 @@ export class MicroFrameworkBootstrapper {
     /**
      * Bootstraps the framework and all its modules.
      */
-    bootstrap(): Promise<void> {
-        return this.modulesRegistry.bootstrapAllModules();
+    bootstrap(): Promise<MicroFrameworkBootstrapper> {
+        return this.modulesRegistry.bootstrapAllModules().then(() => this);
     }
 
     /**
