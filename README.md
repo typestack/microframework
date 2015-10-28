@@ -1,8 +1,8 @@
 # MicroFramework
 
-Micro framework integrates popular libraries like [express.js][1], [Mongodb ODM][2], [t-validator][5],
-[t-controllers][4], [t-event-dispatcher][7]
-and others for use in your Typescript application. Framework ships by default [dependancy injection framework][3] and
+Micro framework integrates popular libraries like [express.js][1], [Mongodb ODM][2], [validator.ts][5],
+[controllers.ts][4], [event-dispatcher.ts][7]
+and others for use in your Typescript application. Framework ships by default [dependency injection framework][3] and
 [configuration framework][6] to make all modules to work like a sh
 
 ## Notice
@@ -17,25 +17,25 @@ You use framework with one or more the available modules. Lets say you want to u
 
 1. Install npm modules: 
 
-`npm install microframework microframework-express microframework-typeodm microframework-t-controllers microframework-t-validator microframework-t-event-dispatcher --save`
+`npm install microframework microframework-express microframework-typeodm microframework-controllers.ts microframework-validator.ts microframework-event-dispatcher.ts --save`
 
 2. Create `app.ts`:
     
     ```typescript
     import {MicroFrameworkBootstrapper} from "microframework/MicroFrameworkBootstrapper";
     import {ExpressModule} from "microframework-express/ExpressModule";
-    import {TControllersModule} from "microframework-t-controllers/TControllersModule";
+    import {ControllersTsModule} from "microframework-controllers.ts/ControllersTsModule";
     import {TypeOdmModule} from "microframework-typeodm/TypeOdmModule";
-    import {TValidatorModule} from "microframework-t-validator/TValidatorModule";
-    import {TEventDispatcherModule} from "microframework-t-event-dispatcher/TEventDispatcherModule";
+    import {ValidatorTsModule} from "microframework-validator.ts/ValidatorTsModule";
+    import {EventDispatcherTsModule} from "microframework-event-dispatcher.ts/EventDispatcherTsModule";
     
     new MicroFrameworkBootstrapper({ baseDirectory: __dirname })
         .registerModules([
             new ExpressModule(),
             new TypeOdmModule(),
-            new TControllersModule(),
-            new TValidatorModule(),
-            new TEventDispatcherModule()
+            new ControllersTsModule(),
+            new ValidatorTsModule(),
+            new EventDispatcherTsModule()
         ])
         .bootstrap()
         .then(result => console.log('Module is running. Open localhost:3000'))
@@ -63,7 +63,7 @@ You use framework with one or more the available modules. Lets say you want to u
 4. Now create your first controller, lets say QuestionController: `controller/QuestionController.ts`:
     
     ```typescript
-    import {Controller, Get} from "t-controllers/Annotations";
+    import {Controller, Get} from "controllers.ts/Annotations";
     import {Response} from "express";
     import {Request} from "express";
     
@@ -85,10 +85,10 @@ You use framework with one or more the available modules. Lets say you want to u
 ## Available Modules
 
 * [microframework-express](https://github.com/PLEEROCK/microframework-express) - integration with [express.js][1]
-* [microframework-t-typeodm](https://github.com/PLEEROCK/microframework-t-typeodm) - integration with [TypeODM][2]
-* [microframework-t-controllers](https://github.com/PLEEROCK/microframework-t-controllers) - integration with [t-controllers][4]
-* [microframework-t-validator](https://github.com/PLEEROCK/microframework-t-validator) - integration with [t-validator][5]
-* [microframework-t-event-dispatcher](https://github.com/PLEEROCK/microframework-t-event-dispatcher) - integration with [t-event-dispatcher][7]
+* [microframework-typeodm](https://github.com/PLEEROCK/microframework-typeodm) - integration with [TypeODM][2]
+* [microframework-controllers.ts](https://github.com/PLEEROCK/microframework-controllers.ts) - integration with [controllers.ts][4]
+* [microframework-validator.ts](https://github.com/PLEEROCK/microframework-validator.ts) - integration with [validator.ts][5]
+* [microframework-event-dispatcher.ts](https://github.com/PLEEROCK/microframework-event-dispatcher.ts) - integration with [event-dispatcher.ts][7]
 
 ## Todos
 
@@ -99,7 +99,7 @@ You use framework with one or more the available modules. Lets say you want to u
 [1]: http://expressjs.com/
 [2]: https://github.com/PLEEROCK/typeodm
 [3]: https://github.com/PLEEROCK/typedi
-[4]: https://github.com/PLEEROCK/t-controllers
-[5]: https://github.com/PLEEROCK/t-validator
-[6]: https://github.com/PLEEROCK/t-configurator
-[7]: https://github.com/PLEEROCK/t-event-dispatcher
+[4]: https://github.com/PLEEROCK/controllers.ts
+[5]: https://github.com/PLEEROCK/validator.ts
+[6]: https://github.com/PLEEROCK/configurator.ts
+[7]: https://github.com/PLEEROCK/event-dispatcher.ts
