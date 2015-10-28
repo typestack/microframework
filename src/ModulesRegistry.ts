@@ -3,7 +3,7 @@ import {Container} from "typedi/Container";
 import {MicroFrameworkConfig} from "./MicroFrameworkConfig";
 import {MicroFrameworkSettings} from "./MicroFrameworkSettings";
 import {MicroFrameworkUtils} from "./MicroFrameworkUtils";
-import {Configurator} from "t-configurator/Configurator";
+import {Configurator} from "configurator.ts/Configurator";
 import {Module} from "./Module";
 import {DependenciesMissingException} from "./exception/DependenciesMissingException";
 import {ModuleConfigurationMissingException} from "./exception/ModuleConfigurationMissingException";

@@ -1,10 +1,9 @@
 import * as fs from "fs";
 import {Container} from "typedi/Container";
-import {defaultConfigurator} from "t-configurator/Configurator";
+import {Configurator, defaultConfigurator} from "configurator.ts/Configurator";
 import {MicroFrameworkConfig} from "./MicroFrameworkConfig";
 import {MicroFrameworkSettings} from "./MicroFrameworkSettings";
 import {MicroFrameworkUtils} from "./MicroFrameworkUtils";
-import {Configurator} from "t-configurator/Configurator";
 import {Module} from "./Module";
 import {DependenciesMissingException} from "./exception/DependenciesMissingException";
 

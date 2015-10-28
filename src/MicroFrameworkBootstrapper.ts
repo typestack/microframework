@@ -2,9 +2,8 @@ import {ModuleRegistry} from "./ModulesRegistry";
 import {MicroFrameworkSettings} from "./MicroFrameworkSettings";
 import {ConfigLoader} from "./ConfigLoader";
 import {Container} from "typedi/Container";
-import {Configurator} from "t-configurator/Configurator";
+import {defaultConfigurator, Configurator} from "configurator.ts/Configurator";
 import {Module} from "./Module";
-import {defaultConfigurator} from "t-configurator/Configurator";
 import {MicroFrameworkConfig} from "./MicroFrameworkConfig";
 
 /**
