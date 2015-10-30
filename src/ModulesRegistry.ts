@@ -58,6 +58,13 @@ export class ModuleRegistry {
     }
 
     /**
+     * Finds a module with given type registered in the registry.
+     */
+    findModuleByType(type: Function): Module {
+        return this.modules.reduce((found, module) => module instanceof type ? module : found, undefined);
+    }
+
+    /**
      * Bootstraps all modules.
      */
     bootstrapAllModules(): Promise<void> {

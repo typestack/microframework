@@ -43,6 +43,11 @@ export interface Module {
     getDependentModules?(): string[];
 
     /**
+     * Module can export some data which supposed to be used by other components.
+     */
+    getModuleExports?<T>(): T;
+
+    /**
      * Initializes module based on the given options. If this module's dependant modules are specified then instances
      * of theses modules will be passed to this method.
      */
