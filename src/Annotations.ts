@@ -15,7 +15,11 @@ export function ModuleExports(microframeworkNameOrModuleType?: string|Function, 
     }
 
     return function (target: Function, key: string, index: number) {
-        const module = MicroFrameworkRegistry.get(name || 'default').findModuleByType(moduleType);
+        const microFramework = MicroFrameworkRegistry.get(name || 'default');
+        if (!microFramework) // if microframework is not bootstrapped then do nothing
+            return;
+
+        const module = microFramework.findModuleByType(moduleType);
         if (!module)
             throw new Error('Module ' + moduleType + ' was not found in the microframework ' + name);
         if (!module.getModuleExports)

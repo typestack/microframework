@@ -42,7 +42,7 @@ You use framework with one or more the available modules. Lets say you want to u
         .catch(error => console.error('Error: ', error));
     ```
     
-3. Create configuration file `configuration/config.yml`:
+3. Create configuration file `configuration/config.json`:
     
     ```json
     {
