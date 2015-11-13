@@ -16,7 +16,7 @@ export class ConfigLoader {
     // Constants
     // -------------------------------------------------------------------------
 
-    public static DEFAULT_CONFIG_DIRECTORY = 'configuration';
+    public static DEFAULT_CONFIG_DIRECTORY = 'config';
     public static DEFAULT_CONFIG_FILE = 'config.json';
     public static DEFAULT_PARAMETERS_FILE = 'parameters.json';
 

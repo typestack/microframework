@@ -1,3 +1,4 @@
+import * as path from "path";
 import {Container} from "typedi/Container";
 import {ModuleRegistry} from "./ModulesRegistry";
 import {MicroFrameworkSettings} from "./MicroFrameworkSettings";
@@ -37,6 +38,11 @@ export class MicroFrameworkBootstrapper {
         } else {
             settings = <MicroFrameworkSettings> nameOrSettings;
         }
+
+        // normalize settings
+        settings.srcDirectory = path.normalize(settings.srcDirectory);
+        if (!settings.baseDirectory)
+            settings.baseDirectory = require('find-root')(settings.srcDirectory);
 
         if (!_configurator)
             this._configurator = defaultConfigurator;
