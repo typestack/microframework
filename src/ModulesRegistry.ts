@@ -11,6 +11,7 @@ import {ModuleProblemsException} from "./exception/ModuleProblemsException";
 import {NoModulesLoadedException} from "./exception/NoModulesLoadedException";
 import {ModuleAlreadyRegisteredException} from "./exception/ModuleAlreadyRegisteredException";
 import {ModuleWithoutNameException} from "./exception/ModuleWithoutNameException";
+import {ModuleInitOptions} from "./Module";
 
 /**
  * Registry for framework modules.
@@ -80,8 +81,9 @@ export class ModuleRegistry {
         }
 
         this.modules.forEach(mod => {
-            let config = {
+            const config: ModuleInitOptions = {
                 frameworkSettings: MicroFrameworkUtils.deepClone<MicroFrameworkSettings>(this.settings),
+                debugMode: this.configuration.debugMode || false,
                 container: Container
             };
             mod.init(config, this.findConfigurationForModule(mod), this.findDependantModulesForModule(mod));

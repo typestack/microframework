@@ -15,6 +15,12 @@ export interface ModuleInitOptions {
      * Container used by Microframework.
      */
     container?: { get(cls: any): any };
+
+    /**
+     * Indicates if debug mode is enabled or not.
+     */
+    debugMode?: boolean;
+
 }
 
 /**
