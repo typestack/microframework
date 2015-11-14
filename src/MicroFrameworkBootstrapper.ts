@@ -19,6 +19,7 @@ export class MicroFrameworkBootstrapper {
     // -------------------------------------------------------------------------
 
     private _name: string;
+    private settings: MicroFrameworkSettings;
     private configuration: MicroFrameworkConfig;
 
     // -------------------------------------------------------------------------
@@ -27,33 +28,33 @@ export class MicroFrameworkBootstrapper {
 
     constructor(settings: MicroFrameworkSettings);
     constructor(name: string, settings: MicroFrameworkSettings);
-    constructor(private nameOrSettings: string|MicroFrameworkSettings,
-                private settings?: MicroFrameworkSettings,
+    constructor(nameOrSettings: string|MicroFrameworkSettings,
+                settings?: MicroFrameworkSettings,
                 private _configurator?: Configurator,
                 private modulesRegistry?: ModuleRegistry,
                 configLoader?: ConfigLoader) {
-        let name: string;
         if (typeof nameOrSettings === 'string') {
-            name = <string> nameOrSettings;
+            this._name = (<string> nameOrSettings);
+            this.settings = settings;
         } else {
-            settings = <MicroFrameworkSettings> nameOrSettings;
+            this._name = 'default';
+            this.settings = <MicroFrameworkSettings> nameOrSettings;
         }
 
         // normalize settings
-        settings.srcDirectory = path.normalize(settings.srcDirectory);
-        if (!settings.baseDirectory)
-            settings.baseDirectory = require('find-root')(settings.srcDirectory);
+        this.settings.srcDirectory = path.normalize(this.settings.srcDirectory);
+        if (!this.settings.baseDirectory)
+            this.settings.baseDirectory = require('find-root')(this.settings.srcDirectory);
 
         if (!_configurator)
             this._configurator = defaultConfigurator;
         if (!configLoader)
-            configLoader = new ConfigLoader(settings);
+            configLoader = new ConfigLoader(this.settings);
 
         configLoader.load();
         this.configuration = this._configurator.get('framework');
-        this.setName(name);
-        if (settings && !modulesRegistry)
-            this.modulesRegistry = new ModuleRegistry(settings, this.configuration, this._configurator);
+        if (this.settings && !modulesRegistry)
+            this.modulesRegistry = new ModuleRegistry(this.settings, this.configuration, this._configurator);
     }
 
     // -------------------------------------------------------------------------
