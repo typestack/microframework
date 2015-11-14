@@ -15,20 +15,20 @@ export function ModuleExports(microframeworkNameOrModuleType?: string|Function, 
     }
 
     return function (target: Function, key: string, index: number) {
-        const microFramework = MicroFrameworkRegistry.get(name || 'default');
-        if (!microFramework) // if microframework is not bootstrapped then do nothing
-            return;
-
-        const module = microFramework.findModuleByType(moduleType);
-        if (!module)
-            throw new Error('Module ' + moduleType + ' was not found in the microframework ' + name);
-        if (!module.getModuleExports)
-            throw new Error('Module ' + moduleType + ' in the microframework ' + name + ' does not export anything.');
-
         Container.registerCustomParamHandler({
             type: target,
             index: index,
             getValue: () => {
+                const microFramework = MicroFrameworkRegistry.get(name || 'default');
+                if (!microFramework) // if microframework is not bootstrapped then do nothing
+                    return;
+
+                const module = microFramework.findModuleByType(moduleType);
+                if (!module)
+                    throw new Error('Module ' + moduleType + ' was not found in the microframework ' + name);
+                if (!module.getModuleExports)
+                    throw new Error('Module ' + moduleType + ' in the microframework ' + name + ' does not export anything.');
+
                 return module.getModuleExports();
             }
         });
