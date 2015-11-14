@@ -78,6 +78,13 @@ export class MicroFrameworkBootstrapper {
         return this._configurator; // todo: find the way to remove global dependency
     }
 
+    /**
+     * Gets the root directory of the running application.
+     */
+    get rootDirectory(): string {
+        return this.settings.baseDirectory; // todo: later rename this to rootDirectory too
+    }
+
     // -------------------------------------------------------------------------
     // Public Methods
     // -------------------------------------------------------------------------
