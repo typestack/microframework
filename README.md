@@ -31,7 +31,7 @@ configurator.ts controllers.ts typedi typeodm validator.ts --save`
 
 ## Usage
 
-1. Create `app.ts`:
+1. Create `src/app.ts`:
     
     ```typescript
     import {MicroFrameworkBootstrapper} from "microframework/MicroFrameworkBootstrapper";
@@ -54,7 +54,8 @@ configurator.ts controllers.ts typedi typeodm validator.ts --save`
         .catch(error => console.error('Error: ', error));
     ```
     
-2. Create configuration file `configuration/config.json`:
+2. Create configuration file `config/config.json` (note: its not in the same dir where your source is,
+folder is near your `package.json` file):
     
     ```json
     {
@@ -72,7 +73,7 @@ configurator.ts controllers.ts typedi typeodm validator.ts --save`
     }
     ```
     
-3. Now create your first controller, lets say QuestionController: `controller/QuestionController.ts`:
+3. Now create your first controller, lets say QuestionController: `src/controller/QuestionController.ts`:
     
     ```typescript
     import {JsonController, Get} from "controllers.ts/Annotations";
