@@ -52,7 +52,7 @@ export class MicroFrameworkBootstrapper {
             configLoader = new ConfigLoader(this.settings);
 
         configLoader.load();
-        this.configuration = this._configurator.get('framework');
+        this.configuration = this._configurator.get('framework') || {};
         if (this.settings && !modulesRegistry)
             this.modulesRegistry = new ModuleRegistry(this.settings, this.configuration, this._configurator);
     }

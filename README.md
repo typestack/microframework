@@ -10,16 +10,28 @@ and others for use in your Typescript application. Framework ships by default [d
 Library is under active development and API may change from version to version. 
 Please consider it before using this library.
 
-## Quick Start
+## Installation
 
 You use framework with one or more the available modules. Lets say you want to use [express.js][1], [Mongodb ODM][2],
 [validator][5], [event-dispatcher][7] and [restful controllers][4].
 
 1. Install npm modules: 
 
-`npm install microframework microframework-express microframework-typeodm microframework-controllers.ts microframework-validator.ts microframework-event-dispatcher.ts --save`
+`npm install microframework microframework-express microframework-typeodm microframework-controllers.ts
+microframework-validator.ts microframework-event-dispatcher.ts microframework-configurator.ts
+configurator.ts controllers.ts typedi typeodm validator.ts --save`
 
-2. Create `app.ts`:
+2. Install required tsd dependencies:
+
+`tsd install es6-promise express mongodb --save`
+
+4. Link definitions of the installed npm modules:
+
+    `tsd link`
+
+## Usage
+
+1. Create `app.ts`:
     
     ```typescript
     import {MicroFrameworkBootstrapper} from "microframework/MicroFrameworkBootstrapper";
@@ -29,7 +41,7 @@ You use framework with one or more the available modules. Lets say you want to u
     import {ValidatorTsModule} from "microframework-validator.ts/ValidatorTsModule";
     import {EventDispatcherTsModule} from "microframework-event-dispatcher.ts/EventDispatcherTsModule";
     
-    new MicroFrameworkBootstrapper({ baseDirectory: __dirname })
+    new MicroFrameworkBootstrapper({ srcDirectory: __dirname })
         .registerModules([
             new ExpressModule(),
             new TypeOdmModule(),
@@ -42,7 +54,7 @@ You use framework with one or more the available modules. Lets say you want to u
         .catch(error => console.error('Error: ', error));
     ```
     
-3. Create configuration file `configuration/config.json`:
+2. Create configuration file `configuration/config.json`:
     
     ```json
     {
@@ -60,18 +72,17 @@ You use framework with one or more the available modules. Lets say you want to u
     }
     ```
     
-4. Now create your first controller, lets say QuestionController: `controller/QuestionController.ts`:
+3. Now create your first controller, lets say QuestionController: `controller/QuestionController.ts`:
     
     ```typescript
-    import {Controller, Get} from "controllers.ts/Annotations";
-    import {Response} from "express";
-    import {Request} from "express";
-    
-    @Controller()
+    import {JsonController, Get} from "controllers.ts/Annotations";
+    import {Response, Request} from "express";
+
+    @JsonController()
     export class QuestionController {
     
         @Get('/questions')
-        all(request: Request, response: Response): any[] {
+        all(): any[] {
             return [
                 { title: 'Which processor to choose?', text: 'Which processor is better: Core i5 or Core i7?' },
                 { title: 'When new star wars gonna be released?', text: 'When star wars gonna be released? I think in december' }
@@ -80,7 +91,7 @@ You use framework with one or more the available modules. Lets say you want to u
     }
     ```
 
-5. Run your app and open `http://localhost:3000/questions` in browser. You should see list of your questions.
+4. Run your app and open `http://localhost:3000/questions` in browser. You should see list of your questions.
 
 ## Available Modules
 
@@ -89,6 +100,10 @@ You use framework with one or more the available modules. Lets say you want to u
 * [microframework-controllers.ts](https://github.com/PLEEROCK/microframework-controllers.ts) - integration with [controllers.ts][4]
 * [microframework-validator.ts](https://github.com/PLEEROCK/microframework-validator.ts) - integration with [validator.ts][5]
 * [microframework-event-dispatcher.ts](https://github.com/PLEEROCK/microframework-event-dispatcher.ts) - integration with [event-dispatcher.ts][7]
+* [microframework-winston](https://github.com/PLEEROCK/microframework-winston) - integration with [winston][8]
+* [microframework-elasticsearch](https://github.com/PLEEROCK/microframework-elasticsearch) - integration with [elasticsearch][9]
+* [microframework-rabbit.ts](https://github.com/PLEEROCK/microframework-rabbit.ts) - integration with [rabbit.js][10]
+* [microframework-event-dispatcher.ts](https://github.com/PLEEROCK/microframework-event-dispatcher.ts) - integration with [event-dispatcher.ts][11]
 
 ## Todos
 
@@ -103,3 +118,7 @@ You use framework with one or more the available modules. Lets say you want to u
 [5]: https://github.com/PLEEROCK/validator.ts
 [6]: https://github.com/PLEEROCK/configurator.ts
 [7]: https://github.com/PLEEROCK/event-dispatcher.ts
+[8]: https://github.com/winstonjs/winston
+[9]: https://github.com/elastic/elasticsearch-js
+[10]: https://github.com/squaremo/rabbit.js/
+[11]: https://github.com/PLEEROCK/event-dispatcher.ts
