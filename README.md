@@ -17,15 +17,15 @@ You use framework with one or more the available modules. Lets say you want to u
 
 1. Install npm modules: 
 
-`npm install microframework microframework-express microframework-typeodm microframework-controllers.ts
+    `npm install microframework microframework-express microframework-typeodm microframework-controllers.ts
 microframework-validator.ts microframework-event-dispatcher.ts microframework-configurator.ts
 configurator.ts controllers.ts typedi typeodm validator.ts --save`
 
 2. Install required tsd dependencies:
 
-`tsd install es6-promise express mongodb --save`
+    `tsd install es6-promise express mongodb --save`
 
-4. Link definitions of the installed npm modules:
+3. Link definitions of the installed npm modules:
 
     `tsd link`
 
@@ -104,7 +104,6 @@ folder is near your `package.json` file):
 * [microframework-winston](https://github.com/PLEEROCK/microframework-winston) - integration with [winston][8]
 * [microframework-elasticsearch](https://github.com/PLEEROCK/microframework-elasticsearch) - integration with [elasticsearch][9]
 * [microframework-rabbit.ts](https://github.com/PLEEROCK/microframework-rabbit.ts) - integration with [rabbit.js][10]
-* [microframework-event-dispatcher.ts](https://github.com/PLEEROCK/microframework-event-dispatcher.ts) - integration with [event-dispatcher.ts][11]
 
 ## Todos
 
@@ -122,4 +121,3 @@ folder is near your `package.json` file):
 [8]: https://github.com/winstonjs/winston
 [9]: https://github.com/elastic/elasticsearch-js
 [10]: https://github.com/squaremo/rabbit.js/
-[11]: https://github.com/PLEEROCK/event-dispatcher.ts
