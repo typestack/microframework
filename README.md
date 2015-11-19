@@ -18,8 +18,7 @@ You use framework with one or more the available modules. Lets say you want to u
 1. Install npm modules: 
 
     `npm install microframework microframework-express microframework-typeodm microframework-controllers.ts
-microframework-validator.ts microframework-event-dispatcher.ts microframework-configurator.ts
-configurator.ts controllers.ts typedi typeodm validator.ts --save`
+microframework-validator.ts microframework-event-dispatcher.ts configurator.ts controllers.ts typedi typeodm validator.ts --save`
 
 2. Install required tsd dependencies:
 
