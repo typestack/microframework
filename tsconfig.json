@@ -1,16 +1,17 @@
 {
     "version": "1.6.2",
     "compilerOptions": {
-        "outDir": "built/es6/src",
+        "outDir": "build/es6/src",
         "target": "es6",
         "module": "commonjs",
+        "moduleResolution": "node",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "sourceMap": true,
         "noImplicitAny": true
     },
     "exclude": [
-        "built",
+        "build",
         "node_modules"
     ]
 }

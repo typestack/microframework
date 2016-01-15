@@ -15,7 +15,7 @@ export function ModuleExports(microframeworkNameOrModuleType?: string|Function, 
     }
 
     return function (target: Function, key: string, index: number) {
-        Container.registerCustomParamHandler({
+        Container.registerParamHandler({
             type: target,
             index: index,
             getValue: () => {
