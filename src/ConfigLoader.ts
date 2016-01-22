@@ -95,8 +95,8 @@ export class ConfigLoader {
     }
 
     private getEnvironment(): string {
-        if (!this.settings.environment)
-            return process.env.NODE_ENV;
+        if (!this.settings.environment && process.env.MICROFRAMEWORK_ENV)
+            return process.env.MICROFRAMEWORK_ENV;
 
         return this.settings.environment;
     }
