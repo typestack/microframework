@@ -20,13 +20,15 @@ You use framework with one or more the available modules. Lets say you want to u
     `npm install microframework microframework-express microframework-typeodm microframework-controllers.ts
 microframework-validator.ts microframework-event-dispatcher.ts configurator.ts controllers.ts typedi typeodm validator.ts --save`
 
-2. Install required tsd dependencies:
+2. Use [typings](https://github.com/typings/typings) to install all required definition dependencies.
 
-    `tsd install es6-promise express mongodb --save`
+    `typings install`
 
-3. Link definitions of the installed npm modules:
+3. ES6 features are used, so you may want to install [es6-shim](https://github.com/paulmillr/es6-shim) too:
 
-    `tsd link`
+    `npm install es6-shim --save`
+
+    you may want to `require("es6-shim");` in your app
 
 ## Usage
 
@@ -49,8 +51,8 @@ microframework-validator.ts microframework-event-dispatcher.ts configurator.ts c
             new EventDispatcherTsModule()
         ])
         .bootstrap()
-        .then(result => console.log('Module is running. Open localhost:3000'))
-        .catch(error => console.error('Error: ', error));
+        .then(result => console.log("Module is running. Open localhost:3000"))
+        .catch(error => console.error("Error: ", error));
     ```
     
 2. Create configuration file `config/config.json` (note: its not in the same dir where your source is,
@@ -81,11 +83,11 @@ folder is near your `package.json` file):
     @JsonController()
     export class QuestionController {
     
-        @Get('/questions')
+        @Get("/questions")
         all(): any[] {
             return [
-                { title: 'Which processor to choose?', text: 'Which processor is better: Core i5 or Core i7?' },
-                { title: 'When new star wars gonna be released?', text: 'When star wars gonna be released? I think in december' }
+                { title: "Which processor to choose?", text: "Which processor is better: Core i5 or Core i7?" },
+                { title: "When new star wars gonna be released?", text: "When star wars gonna be released? I think in december" }
             ];
         }
     }
@@ -95,28 +97,31 @@ folder is near your `package.json` file):
 
 ## Available Modules
 
-* [microframework-express](https://github.com/PLEEROCK/microframework-express) - integration with [express.js][1]
-* [microframework-typeodm](https://github.com/PLEEROCK/microframework-typeodm) - integration with [TypeODM][2]
-* [microframework-controllers.ts](https://github.com/PLEEROCK/microframework-controllers.ts) - integration with [controllers.ts][4]
-* [microframework-validator.ts](https://github.com/PLEEROCK/microframework-validator.ts) - integration with [validator.ts][5]
-* [microframework-event-dispatcher.ts](https://github.com/PLEEROCK/microframework-event-dispatcher.ts) - integration with [event-dispatcher.ts][7]
-* [microframework-winston](https://github.com/PLEEROCK/microframework-winston) - integration with [winston][8]
-* [microframework-elasticsearch](https://github.com/PLEEROCK/microframework-elasticsearch) - integration with [elasticsearch][9]
-* [microframework-rabbit.ts](https://github.com/PLEEROCK/microframework-rabbit.ts) - integration with [rabbit.js][10]
+* [microframework-express](https://github.com/pleerock/microframework-express) - integration with [express.js][1]
+* [microframework-typeodm](https://github.com/pleerock/microframework-typeodm) - integration with [TypeODM][2]
+* [microframework-controllers.ts](https://github.com/pleerock/microframework-controllers.ts) - integration with [controllers.ts][4]
+* [microframework-validator.ts](https://github.com/pleerock/microframework-validator.ts) - integration with [validator.ts][5]
+* [microframework-event-dispatcher.ts](https://github.com/pleerock/microframework-event-dispatcher.ts) - integration with [event-dispatcher.ts][7]
+* [microframework-winston](https://github.com/pleerock/microframework-winston) - integration with [winston][8]
+* [microframework-elasticsearch](https://github.com/pleerock/microframework-elasticsearch) - integration with [elasticsearch][9]
+* [microframework-rabbit.ts](https://github.com/pleerock/microframework-rabbit.ts) - integration with [rabbit.js][10]
 
 ## Todos
 
 * cover with tests
 * more documentation and examples
 * more modules
+* add ability to include other configs by include path in the object?
+* add yo generator
+* good to have todo mvc sample
 
 [1]: http://expressjs.com/
-[2]: https://github.com/PLEEROCK/typeodm
-[3]: https://github.com/PLEEROCK/typedi
-[4]: https://github.com/PLEEROCK/controllers.ts
-[5]: https://github.com/PLEEROCK/validator.ts
-[6]: https://github.com/PLEEROCK/configurator.ts
-[7]: https://github.com/PLEEROCK/event-dispatcher.ts
+[2]: https://github.com/pleerock/typeodm
+[3]: https://github.com/pleerock/typedi
+[4]: https://github.com/pleerock/controllers.ts
+[5]: https://github.com/pleerock/validator.ts
+[6]: https://github.com/pleerock/configurator.ts
+[7]: https://github.com/pleerock/event-dispatcher.ts
 [8]: https://github.com/winstonjs/winston
 [9]: https://github.com/elastic/elasticsearch-js
 [10]: https://github.com/squaremo/rabbit.js/

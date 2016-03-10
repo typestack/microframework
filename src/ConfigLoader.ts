@@ -16,9 +16,9 @@ export class ConfigLoader {
     // Constants
     // -------------------------------------------------------------------------
 
-    public static DEFAULT_CONFIG_DIRECTORY = 'config';
-    public static DEFAULT_CONFIG_FILE = 'config.json';
-    public static DEFAULT_PARAMETERS_FILE = 'parameters.json';
+    public static DEFAULT_CONFIG_DIRECTORY = "config";
+    public static DEFAULT_CONFIG_FILE = "config.json";
+    public static DEFAULT_PARAMETERS_FILE = "parameters.json";
 
     // -------------------------------------------------------------------------
     // Constructor
@@ -103,14 +103,14 @@ export class ConfigLoader {
 
     private getConfigFiles(): string[] {
         if (!this.settings.configurationFiles)
-            return [this.settings.baseDirectory + '/' + ConfigLoader.DEFAULT_CONFIG_DIRECTORY + '/' + ConfigLoader.DEFAULT_CONFIG_FILE];
+            return [this.settings.baseDirectory + "/" + ConfigLoader.DEFAULT_CONFIG_DIRECTORY + "/" + ConfigLoader.DEFAULT_CONFIG_FILE];
 
         return this.settings.configurationFiles;
     }
 
     private getParameterFiles(): string[] {
         if (!this.settings.parametersFiles)
-            return [this.settings.baseDirectory + '/' + ConfigLoader.DEFAULT_CONFIG_DIRECTORY + '/' + ConfigLoader.DEFAULT_PARAMETERS_FILE];
+            return [this.settings.baseDirectory + "/" + ConfigLoader.DEFAULT_CONFIG_DIRECTORY + "/" + ConfigLoader.DEFAULT_PARAMETERS_FILE];
 
         return this.settings.parametersFiles;
     }

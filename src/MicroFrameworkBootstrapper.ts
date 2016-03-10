@@ -33,18 +33,18 @@ export class MicroFrameworkBootstrapper {
                 private _configurator?: Configurator,
                 private modulesRegistry?: ModuleRegistry,
                 configLoader?: ConfigLoader) {
-        if (typeof nameOrSettings === 'string') {
+        if (typeof nameOrSettings === "string") {
             this._name = (<string> nameOrSettings);
             this.settings = settings;
         } else {
-            this._name = 'default';
+            this._name = "default";
             this.settings = <MicroFrameworkSettings> nameOrSettings;
         }
 
         // normalize settings
         this.settings.srcDirectory = path.normalize(this.settings.srcDirectory);
         if (!this.settings.baseDirectory)
-            this.settings.baseDirectory = require('find-root')(this.settings.srcDirectory);
+            this.settings.baseDirectory = require("find-root")(this.settings.srcDirectory);
 
         if (!_configurator)
             this._configurator = defaultConfigurator;
@@ -52,7 +52,7 @@ export class MicroFrameworkBootstrapper {
             configLoader = new ConfigLoader(this.settings);
 
         configLoader.load();
-        this.configuration = this._configurator.get('framework') || {};
+        this.configuration = this._configurator.get("framework") || {};
         if (this.settings && !modulesRegistry)
             this.modulesRegistry = new ModuleRegistry(this.settings, this.configuration, this._configurator);
     }
@@ -94,10 +94,10 @@ export class MicroFrameworkBootstrapper {
      * Sets the name used by microframework. Note that name must be set before bootstrapping the framework.
      */
     setName(name: string): MicroFrameworkBootstrapper {
-        if (MicroFrameworkRegistry.has(name || 'default'))
+        if (MicroFrameworkRegistry.has(name || "default"))
             throw new MicroframeworkNameAlreadyExistException(name);
 
-        this._name = name || 'default';
+        this._name = name || "default";
         return this;
     }
 

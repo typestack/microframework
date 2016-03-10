@@ -1,9 +1,9 @@
 export class ModuleProblemsException extends Error {
-    name = 'ModuleProblemsException';
+    name = "ModuleProblemsException";
 
     constructor(message: string) {
         super();
-        this.message = 'Registered modules have a problems: ' + message;
+        this.message = "Registered modules have a problems: " + message;
     }
 
 }

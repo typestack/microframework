@@ -24,11 +24,11 @@ export interface MicroFrameworkSettings {
     /**
      * List of configuration files that will be loaded to get configurations from it.
      */
-    configurationFiles?: string[]; // default is './config/config.json'
+    configurationFiles?: string[]; // default is "./config/config.json"
 
     /**
      * List of parameter files that will be loaded to get parameters from it.
      */
-    parametersFiles?: string[]; // defaults is './config/parameters.json'
+    parametersFiles?: string[]; // defaults is "./config/parameters.json"
 
 }

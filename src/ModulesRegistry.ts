@@ -77,7 +77,7 @@ export class ModuleRegistry {
             MicroFrameworkUtils.sortModulesByDependencies(this.modules);
 
         } catch (error) {
-            throw new ModuleProblemsException(error.message ? error.message : '');
+            throw new ModuleProblemsException(error.message ? error.message : "");
         }
 
         this.modules.forEach(mod => {
