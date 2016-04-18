@@ -1,11 +1,7 @@
 import * as fs from "fs";
-import {Container} from "typedi/Container";
-import {Configurator, defaultConfigurator} from "configurator.ts/Configurator";
-import {MicroFrameworkConfig} from "./MicroFrameworkConfig";
+import Configurator from "configuration-manager/configuration-manager";
 import {MicroFrameworkSettings} from "./MicroFrameworkSettings";
 import {MicroFrameworkUtils} from "./MicroFrameworkUtils";
-import {Module} from "./Module";
-import {DependenciesMissingException} from "./exception/DependenciesMissingException";
 
 /**
  * Loads configuration files into the framework.
@@ -48,12 +44,12 @@ export class ConfigLoader {
         configFiles
             .map(file => this.requireFile(file))
             .filter(file => !!file)
-            .forEach(file => defaultConfigurator.addConfiguration(file));
+            .forEach(file => Configurator.addConfiguration(file));
 
         configFiles
             .map(file => this.requireEnvironmentFile(file))
             .filter(envFile => !!envFile)
-            .forEach(envFile => defaultConfigurator.addConfiguration(envFile));
+            .forEach(envFile => Configurator.addConfiguration(envFile));
     }
 
     private loadParameters() {
@@ -70,7 +66,7 @@ export class ConfigLoader {
             .filter(envFile => !!envFile)
             .forEach(envFile => merge(envFile, parameters));
 
-        defaultConfigurator.replaceWithParameters(parameters);
+        Configurator.replaceWithParameters(parameters);
     }
 
     private requireFile(file: string): any {

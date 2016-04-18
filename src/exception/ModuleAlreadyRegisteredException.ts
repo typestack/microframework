@@ -1,5 +1,3 @@
-import {Module} from "../Module";
-
 export class ModuleAlreadyRegisteredException extends Error {
     name = "ModuleAlreadyRegisteredException";
 

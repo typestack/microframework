@@ -1,5 +1,5 @@
 import {MicroFrameworkRegistry} from "./MicroFrameworkRegistry";
-import {Container} from "typedi/Container";
+import {Container} from "typedi/typedi";
 
 /**
  * Gets the module

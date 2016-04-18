@@ -1,5 +1,3 @@
-import * as path from "path";
-import {Module} from "./Module";
 import {MicroFrameworkBootstrapper} from "./MicroFrameworkBootstrapper";
 
 export class MicroFrameworkRegistry {

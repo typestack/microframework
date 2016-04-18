@@ -1,5 +1,3 @@
-import {Module} from "../Module";
-
 export class NoModulesLoadedException extends Error {
     name = "NoModulesLoadedException";
 

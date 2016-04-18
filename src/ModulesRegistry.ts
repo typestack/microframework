@@ -1,17 +1,15 @@
-import * as fs from "fs";
-import {Container} from "typedi/Container";
+import {Container} from "typedi/typedi";
 import {MicroFrameworkConfig} from "./MicroFrameworkConfig";
 import {MicroFrameworkSettings} from "./MicroFrameworkSettings";
 import {MicroFrameworkUtils} from "./MicroFrameworkUtils";
-import {Configurator} from "configurator.ts/Configurator";
-import {Module} from "./Module";
+import {Configurator} from "configuration-manager/Configurator";
+import {Module, ModuleInitOptions} from "./Module";
 import {DependenciesMissingException} from "./exception/DependenciesMissingException";
 import {ModuleConfigurationMissingException} from "./exception/ModuleConfigurationMissingException";
 import {ModuleProblemsException} from "./exception/ModuleProblemsException";
 import {NoModulesLoadedException} from "./exception/NoModulesLoadedException";
 import {ModuleAlreadyRegisteredException} from "./exception/ModuleAlreadyRegisteredException";
 import {ModuleWithoutNameException} from "./exception/ModuleWithoutNameException";
-import {ModuleInitOptions} from "./Module";
 
 /**
  * Registry for framework modules.

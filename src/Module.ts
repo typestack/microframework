@@ -1,4 +1,3 @@
-import {MicroFrameworkBootstrapper} from "./MicroFrameworkBootstrapper";
 import {MicroFrameworkSettings} from "./MicroFrameworkSettings";
 
 /**
