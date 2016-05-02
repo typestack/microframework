@@ -113,7 +113,16 @@ export class ModuleRegistry {
             .then(() => Promise.all(this.modules.map(module => module.afterBootstrap ? module.afterBootstrap() : undefined)))
             .then(() => {})
             .catch(err => {
-                return this.shutdownAllModules().then(function() { throw err; });
+
+                // we need to catch any kind of error in the shutdown and provide original error instead, 
+                // because otherwise if shutdown will fail user will not know about orignal issue
+                try {
+                    return this.shutdownAllModules()
+                        .then(function () { throw err; })
+                        .catch(function () { throw err; });
+                } catch (errorInShutdown) {
+                    throw err;
+                }
             });
     }
 
