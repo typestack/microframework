@@ -10,6 +10,7 @@ import {ModuleProblemsException} from "./exception/ModuleProblemsException";
 import {NoModulesLoadedException} from "./exception/NoModulesLoadedException";
 import {ModuleAlreadyRegisteredException} from "./exception/ModuleAlreadyRegisteredException";
 import {ModuleWithoutNameException} from "./exception/ModuleWithoutNameException";
+import {MicroFrameworkBootstrapper} from "./MicroFrameworkBootstrapper";
 
 /**
  * Registry for framework modules.
@@ -28,7 +29,8 @@ export class ModuleRegistry {
 
     constructor(private settings: MicroFrameworkSettings,
                 private configuration: MicroFrameworkConfig,
-                private configurator: Configurator) {
+                private configurator: Configurator,
+                private microframework: MicroFrameworkBootstrapper) {
     }
 
     // -------------------------------------------------------------------------
@@ -62,6 +64,13 @@ export class ModuleRegistry {
     findModuleByType(type: Function): Module {
         return this.modules.reduce((found, module) => module instanceof type ? module : found, undefined);
     }
+    
+    /**
+     * Finds a module with given type registered in the registry.
+     */
+    findModuleByName(name: string): Module {
+        return this.modules.find(module => module.getName() === name);
+    }
 
     /**
      * Bootstraps all modules.
@@ -84,7 +93,7 @@ export class ModuleRegistry {
                 debugMode: this.configuration.debugMode || false,
                 container: Container
             };
-            mod.init(config, this.findConfigurationForModule(mod), this.findDependantModulesForModule(mod));
+            mod.init(config, this.findConfigurationForModule(mod), this.findDependantModulesForModule(mod), this.microframework);
         });
 
         if (this.configuration.bootstrap && this.configuration.bootstrap.timeout > 0) {
@@ -150,7 +159,7 @@ export class ModuleRegistry {
             return dependantModule;
         });
 
-        if (missingDependantModuleNames.length > 0)
+        if (!module.ignoreMissingDependencies && missingDependantModuleNames.length > 0)
             throw new DependenciesMissingException(module.getName(), missingDependantModuleNames);
 
         return dependantModules;

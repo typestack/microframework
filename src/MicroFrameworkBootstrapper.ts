@@ -55,7 +55,7 @@ export class MicroFrameworkBootstrapper {
         configLoader.load();
         this.configuration = this._configurator.get("framework") || {};
         if (this.settings && !modulesRegistry)
-            this.modulesRegistry = new ModuleRegistry(this.settings, this.configuration, this._configurator);
+            this.modulesRegistry = new ModuleRegistry(this.settings, this.configuration, this._configurator, this);
     }
 
     // -------------------------------------------------------------------------
@@ -129,6 +129,10 @@ export class MicroFrameworkBootstrapper {
 
     findModuleByType(type: Function): Module {
         return this.modulesRegistry.findModuleByType(type);
+    }
+
+    findModuleByName(name: string): Module {
+        return this.modulesRegistry.findModuleByName(name);
     }
 
     /**

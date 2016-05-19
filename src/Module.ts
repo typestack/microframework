@@ -1,4 +1,5 @@
 import {MicroFrameworkSettings} from "./MicroFrameworkSettings";
+import {MicroFrameworkBootstrapper} from "./MicroFrameworkBootstrapper";
 
 /**
  * Options passed to the init method of the module.
@@ -28,6 +29,11 @@ export interface ModuleInitOptions {
 export interface Module {
 
     /**
+     * If set to true then if any depend module is missing then error will be ignored.
+     */
+    ignoreMissingDependencies?: boolean;
+
+    /**
      * The name of the module.
      */
     getName(): string;
@@ -55,8 +61,10 @@ export interface Module {
     /**
      * Initializes module based on the given options. If this module's dependant modules are specified then instances
      * of theses modules will be passed to this method.
+     * 
+     * todo: framework should be on the first place.
      */
-    init(options: ModuleInitOptions, configuration?: any, dependentModules?: Module[]): void;
+    init(options: ModuleInitOptions, configuration?: any, dependentModules?: Module[], framework?: MicroFrameworkBootstrapper): void;
 
     /**
      * Runs when framework is getting bootstrapped.
