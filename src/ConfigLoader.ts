@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import Configurator from "configuration-manager/configuration-manager";
+import Configurator from "configuration-manager";
 import {MicroFrameworkSettings} from "./MicroFrameworkSettings";
 import {MicroFrameworkUtils} from "./MicroFrameworkUtils";
 

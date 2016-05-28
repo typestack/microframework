@@ -1,10 +1,10 @@
 import * as path from "path";
-import {Container} from "typedi/typedi";
+import {Container} from "typedi";
 import {ModuleRegistry} from "./ModulesRegistry";
 import {MicroFrameworkSettings} from "./MicroFrameworkSettings";
 import {ConfigLoader} from "./ConfigLoader";
-import {Configurator} from "configuration-manager/Configurator";
-import defaultConfigurator from "configuration-manager/configuration-manager";
+import {Configurator} from "configuration-manager";
+import defaultConfigurator from "configuration-manager";
 import {Module} from "./Module";
 import {MicroFrameworkConfig} from "./MicroFrameworkConfig";
 import {MicroFrameworkRegistry} from "./MicroFrameworkRegistry";

@@ -1,8 +1,8 @@
-import {Container} from "typedi/typedi";
+import {Container} from "typedi";
 import {MicroFrameworkConfig} from "./MicroFrameworkConfig";
 import {MicroFrameworkSettings} from "./MicroFrameworkSettings";
 import {MicroFrameworkUtils} from "./MicroFrameworkUtils";
-import {Configurator} from "configuration-manager/Configurator";
+import {Configurator} from "configuration-manager";
 import {Module, ModuleInitOptions} from "./Module";
 import {DependenciesMissingException} from "./exception/DependenciesMissingException";
 import {ModuleConfigurationMissingException} from "./exception/ModuleConfigurationMissingException";
