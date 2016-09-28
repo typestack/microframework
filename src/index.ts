@@ -7,3 +7,4 @@ export * from "./MicroFrameworkSettings";
 export * from "./MicroFrameworkUtils";
 export * from "./Module";
 export * from "./ModulesRegistry";
+export * from "./MicroFramework";

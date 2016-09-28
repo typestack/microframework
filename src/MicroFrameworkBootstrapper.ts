@@ -3,8 +3,7 @@ import {Container} from "typedi";
 import {ModuleRegistry} from "./ModulesRegistry";
 import {MicroFrameworkSettings} from "./MicroFrameworkSettings";
 import {ConfigLoader} from "./ConfigLoader";
-import {Configurator} from "configuration-manager";
-import defaultConfigurator from "configuration-manager";
+import defaultConfigurator, {Configurator} from "configuration-manager";
 import {Module} from "./Module";
 import {MicroFrameworkConfig} from "./MicroFrameworkConfig";
 import {MicroFrameworkRegistry} from "./MicroFrameworkRegistry";
@@ -12,6 +11,8 @@ import {MicroframeworkNameAlreadyExistException} from "./exception/Microframewor
 
 /**
  * This class runs microframework and its specified modules.
+ *
+ * @deprecated
  */
 export class MicroFrameworkBootstrapper {
 
