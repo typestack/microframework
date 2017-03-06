@@ -1,9 +1,9 @@
 {
   "name": "microframework",
   "private": true,
-  "version": "0.5.5",
-  "description": "Micro framework is a bundle of express.js, mongodb ODM, validator, dependancy injection framework and restful controllers for your apps using Typescript",
-  "license": "Apache-2.0",
+  "version": "0.6.0",
+  "description": "Microframework is a minimalistic framework you can use with TypeScript and JavaScript.",
+  "license": "MIT",
   "readmeFilename": "README.md",
   "author": {
     "name": "Umed Khudoiberdiev",
@@ -21,28 +21,31 @@
     "typescript",
     "typescript-framework"
   ],
-  "dependencies": {
-    "configuration-manager": "~0.4.1",
-    "find-root": "0.1.1",
-    "path": "^0.12.7",
-    "typedi": "~0.4.0"
-  },
   "devDependencies": {
+    "@types/express": "^4.0.35",
+    "@types/node": "^7.0.5",
+    "@types/winston": "^2.2.0",
+    "ascii-art": "^1.4.2",
     "chai": "^3.4.1",
-    "chai-as-promised": "^5.2.0",
-    "del": "^2.0.2",
+    "chai-as-promised": "^6.0.0",
+    "del": "^2.2.2",
+    "express": "^4.15.1",
     "gulp": "^3.9.1",
-    "gulp-mocha": "^2.2.0",
+    "gulp-mocha": "^4.0.1",
     "gulp-replace": "^0.5.4",
-    "gulp-shell": "^0.5.0",
-    "gulp-tslint": "^4.3.3",
-    "gulpclass": "0.1.0",
-    "mocha": "^2.3.4",
-    "sinon": "^1.17.2",
+    "gulp-shell": "^0.6.1",
+    "gulp-tslint": "^7.1.0",
+    "gulpclass": "0.1.2",
+    "i": "^0.3.5",
+    "mocha": "^3.2.0",
+    "mysql": "^2.13.0",
+    "npm": "^4.3.0",
+    "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0",
-    "tslint": "^3.5.0",
-    "tslint-stylish": "^2.1.0-beta",
-    "typescript": "^1.8.7",
-    "typings": "^0.7.7"
+    "tslint": "^4.5.1",
+    "tslint-stylish": "^2.1.0",
+    "typeorm": "0.0.9",
+    "typescript": "^2.2.1",
+    "winston": "^2.3.1"
   }
 }

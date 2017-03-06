@@ -1,127 +1,161 @@
-# MicroFramework
+# Microframework
 
-Micro framework integrates popular libraries like [express.js][1], [Mongodb ODM][2], [validator.ts][5],
-[controllers.ts][4], [event-dispatcher.ts][7]
-and others for use in your Typescript application. Framework ships by default [dependency injection framework][3] and
-[configuration framework][6] to make all modules to work like a sh
-
-## Notice
-
-Library is under active development and API may change from version to version. 
-Please consider it before using this library.
-
-## Installation
-
-You use framework with one or more the available modules. Lets say you want to use [express.js][1], [Mongodb ODM][2],
-[validator][5], [event-dispatcher][7] and [restful controllers][4].
-
-1. Install npm modules: 
-
-    `npm install microframework microframework-express microframework-typeodm microframework-controllers.ts
-microframework-validator.ts microframework-event-dispatcher.ts configurator.ts controllers.ts typedi typeodm validator.ts --save`
-
-2. Use [typings](https://github.com/typings/typings) to install all required definition dependencies.
-
-    `typings install`
-
-3. ES6 features are used, so you may want to install [es6-shim](https://github.com/paulmillr/es6-shim) too:
-
-    `npm install es6-shim --save`
-
-    you may want to `require("es6-shim");` in your app
+Microframework is a simple tool that allows you to execute your modules in a proper order, 
+helping you to organize bootstrap code in your application.
 
 ## Usage
 
-1. Create `src/app.ts`:
+First, install the module:
+
+```
+npm i microframework
+```
+
+Second, create a simple "module" named `expressModule`:
+
+```typescript
+import {MicroframeworkBootstrapSettings} from "microframework";
+
+export function expressModule(settings: MicroframeworkBootstrapSettings) {
+
+    // create express app
+    const app = express();
+
+    // register all routes, Routes are just routes that should be stored outside of this module
+    const routes: any = Routes;
+    Object.keys(routes).forEach(routePath => app.get(routePath, routes[routePath]));
+
+    // run application to listen on given port
+    app.listen(3000);
     
-    ```typescript
-    import {MicroFrameworkBootstrapper} from "microframework/MicroFrameworkBootstrapper";
-    import {ExpressModule} from "microframework-express/ExpressModule";
-    import {ControllersTsModule} from "microframework-controllers.ts/ControllersTsModule";
-    import {TypeOdmModule} from "microframework-typeodm/TypeOdmModule";
-    import {ValidatorTsModule} from "microframework-validator.ts/ValidatorTsModule";
-    import {EventDispatcherTsModule} from "microframework-event-dispatcher.ts/EventDispatcherTsModule";
+    // your module also can return a promise
+}
+```
+
+Create `app.ts` and bootstrap a microframework and your express module:
+
+```typescript
+import {bootstrapMicroframework} from "microframework";
+import {expressModule} from "./expressModule";
+
+bootstrapMicroframework([
+    expressModule
+])
+    .then(() => console.log("Application is up and running."))
+    .catch(error => console.log("Application is crashed: " + error));
+```
+
+That's all. You can do same for other modules. 
+Take a look on sample to understand better how concept of modules and their bootstrapping in microframework.
+
+## Settings
+
+You can specify additional options to microframework.
+
+* `logo` - Logo needs to be used before application launches. To use logo ansi-art module should be installed.
+* `showBootstrapTime` - If set to true then framework shows how much time was spend to bootstrap all modules.
+* `bootstrapTimeout` - Number of milliseconds to wait before framework will bootstrap all modules.
+
+Example of using settings:
+
+```typescript
+import {bootstrapMicroframework} from "microframework";
+
+bootstrapMicroframework({
+    config: {
+        logo: "MyApp",
+        showBootstrapTime: true,
+        bootstrapTimeout: 10
+    }, 
+    modules: [
+        expressModule,
+        // ...
+    ]
+})
+    .then(() => console.log("Application is up and running."))
+    .catch(error => console.log("Application is crashed: " + error));
+```
+
+## Sharing data across modules
+
+Sometimes few modules need to communicate between each other and use shared data.
+For such purpose you can store the data in `settings` object passed to each module
+and use stored data across all other modules. For example:
+
+```typescript
+import {MicroframeworkBootstrapSettings} from "microframework";
+
+export function expressModule(settings: MicroframeworkBootstrapSettings) {
+
+    // create express app
+    const app = express();
+
+    // register all routes, Routes are just routes that should be stored outside of this module
+    const routes: any = Routes;
+    Object.keys(routes).forEach(routePath => app.get(routePath, routes[routePath]));
+
+    // run application to listen on given port
+    app.listen(3000);
     
-    new MicroFrameworkBootstrapper({ srcDirectory: __dirname })
-        .registerModules([
-            new ExpressModule(),
-            new TypeOdmModule(),
-            new ControllersTsModule(),
-            new ValidatorTsModule(),
-            new EventDispatcherTsModule()
-        ])
-        .bootstrap()
-        .then(result => console.log("Module is running. Open localhost:3000"))
-        .catch(error => console.error("Error: ", error));
-    ```
-    
-2. Create configuration file `config/config.json` (note: its not in the same dir where your source is,
-folder is near your `package.json` file):
-    
-    ```json
-    {
-      "express": {
-        "port": "3000",
-        "bodyParser": {
-            "type": "json"
+    settings.setData("express_app", app);
+}
+```
+
+And another modules can use data this way:
+
+```typescript
+import {MicroframeworkBootstrapSettings} from "microframework";
+
+export function socketIoModule(settings: MicroframeworkBootstrapSettings) {
+    const io = io();
+    io.useExpress(settings.getData("express_app"));
+}
+```
+
+## Application Shutdown
+
+In the case if you want to shutdown running application you need to do following:
+
+```typescript
+import {bootstrapMicroframework} from "microframework";
+
+bootstrapMicroframework({
+    config: {
+        logo: "MyApp",
+        showBootstrapTime: true,
+        bootstrapTimeout: 10
+    }, 
+    modules: [
+        expressModule,
+        // ...
+    ]
+})
+    .then(framework => {
+        // do something before shutdown
+        
+        // and shutdown everything
+        return framework.shutdown();
+    })
+    .then(() => {
+        // now everything is turned off
+    })
+    .catch(error => console.log("Application is crashed: " + error));
+```
+
+All modules which use resources should release them, for example:
+
+```typescript
+export async function typeormModule(settings: MicroframeworkBootstrapSettings) {
+    const connection = await createConnection({
+        driver: {
+            type: "mysql",
+            host: "localhost",
+            username: "test",
+            password: "test",
+            database: "test"
         }
-      },
-      "typeodm": {
-        "connection": {
-          "url": "mongodb://localhost:27017/microframework-sample"
-        }
-      }
-    }
-    ```
-    
-3. Now create your first controller, lets say QuestionController: `src/controller/QuestionController.ts`:
-    
-    ```typescript
-    import {JsonController, Get} from "controllers.ts/Annotations";
-    import {Response, Request} from "express";
+    });
 
-    @JsonController()
-    export class QuestionController {
-    
-        @Get("/questions")
-        all(): any[] {
-            return [
-                { title: "Which processor to choose?", text: "Which processor is better: Core i5 or Core i7?" },
-                { title: "When new star wars gonna be released?", text: "When star wars gonna be released? I think in december" }
-            ];
-        }
-    }
-    ```
-
-4. Run your app and open `http://localhost:3000/questions` in browser. You should see list of your questions.
-
-## Available Modules
-
-* [microframework-express](https://github.com/pleerock/microframework-express) - integration with [express.js][1]
-* [microframework-typeodm](https://github.com/pleerock/microframework-typeodm) - integration with [TypeODM][2]
-* [microframework-controllers.ts](https://github.com/pleerock/microframework-controllers.ts) - integration with [controllers.ts][4]
-* [microframework-validator.ts](https://github.com/pleerock/microframework-validator.ts) - integration with [validator.ts][5]
-* [microframework-event-dispatcher.ts](https://github.com/pleerock/microframework-event-dispatcher.ts) - integration with [event-dispatcher.ts][7]
-* [microframework-winston](https://github.com/pleerock/microframework-winston) - integration with [winston][8]
-* [microframework-elasticsearch](https://github.com/pleerock/microframework-elasticsearch) - integration with [elasticsearch][9]
-* [microframework-rabbit.ts](https://github.com/pleerock/microframework-rabbit.ts) - integration with [rabbit.js][10]
-
-## Todos
-
-* cover with tests
-* more documentation and examples
-* more modules
-* add ability to include other configs by include path in the object?
-* add yo generator
-* good to have todo mvc sample
-
-[1]: http://expressjs.com/
-[2]: https://github.com/pleerock/typeodm
-[3]: https://github.com/pleerock/typedi
-[4]: https://github.com/pleerock/controllers.ts
-[5]: https://github.com/pleerock/validator.ts
-[6]: https://github.com/pleerock/configurator.ts
-[7]: https://github.com/pleerock/event-dispatcher.ts
-[8]: https://github.com/winstonjs/winston
-[9]: https://github.com/elastic/elasticsearch-js
-[10]: https://github.com/squaremo/rabbit.js/
+    settings.addShutdownHandler(() => connection.close());
+}
+```
