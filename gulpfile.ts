@@ -55,7 +55,7 @@ export class Gulpfile {
      */
     @Task()
     packageFiles() {
-        return gulp.src("./build/es5/src/**/*")
+        return gulp.src("./build/compiled/src/**/*")
             .pipe(gulp.dest("./build/package"));
     }
 
@@ -126,7 +126,7 @@ export class Gulpfile {
         chai.should();
         chai.use(require("sinon-chai"));
         chai.use(require("chai-as-promised"));
-        return gulp.src("./build/es5/test/unit/**/*.js")
+        return gulp.src("./build/compiled/test/unit/**/*.js")
             .pipe(mocha());
     }
 
