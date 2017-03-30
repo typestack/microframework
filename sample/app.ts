@@ -1,7 +1,7 @@
 import {bootstrapMicroframework} from "../src/index";
-import {expressModule} from "./framework/expressModule";
-import {typeormModule} from "./framework/typeormModule";
-import {winstonModule} from "./framework/winstonModule";
+import {expressModule} from "./modules/expressModule";
+import {typeormModule} from "./modules/typeormModule";
+import {winstonModule} from "./modules/winstonModule";
 
 bootstrapMicroframework({
     config: { // completely optional

@@ -1,4 +1,4 @@
-import {MicroframeworkBootstrapSettings} from "./MicroframeworkBootstrapSettings";
+import {MicroframeworkSettings} from "./MicroframeworkSettings";
 import {MicroframeworkModule} from "./MicroframeworkModule";
 import {MicroframeworkConfig} from "./MicroframeworkConfig";
 import {MicroframeworkNotBootstrappedError} from "./error/MicroframeworkNotBootstrappedError";
@@ -27,7 +27,7 @@ export class Microframework {
      * Stores all settings of modules bootstrapped by microframework.
      * If its undefined it means framework is not bootstrapped yet.
      */
-    private settings?: MicroframeworkBootstrapSettings;
+    private settings?: MicroframeworkSettings;
 
     // -------------------------------------------------------------------------
     // Public Methods
@@ -77,7 +77,7 @@ export class Microframework {
      * Bootstraps all modules.
      */
     bootstrap(): Promise<this> {
-        const settings = new MicroframeworkBootstrapSettings();
+        const settings = new MicroframeworkSettings();
         const bootstrapTime = +new Date();
 
         return this.generateLogo()

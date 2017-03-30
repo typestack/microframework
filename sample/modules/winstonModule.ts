@@ -1,7 +1,7 @@
-import {MicroframeworkBootstrapSettings} from "../../src/MicroframeworkBootstrapSettings";
+import {MicroframeworkSettings} from "../../src/MicroframeworkSettings";
 const winston = require("winston");
 
-export function winstonModule(settings: MicroframeworkBootstrapSettings) {
+export function winstonModule(settings: MicroframeworkSettings) {
     winston.configure({
         transports: [
             new winston.transports.File({

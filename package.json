@@ -1,7 +1,7 @@
 {
   "name": "microframework",
   "private": true,
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Microframework is a minimalistic framework you can use with TypeScript and JavaScript.",
   "license": "MIT",
   "readmeFilename": "README.md",

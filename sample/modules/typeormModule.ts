@@ -1,7 +1,7 @@
 import {createConnection} from "typeorm";
-import {MicroframeworkBootstrapSettings} from "../../src/MicroframeworkBootstrapSettings";
+import {MicroframeworkSettings} from "../../src/MicroframeworkSettings";
 
-export async function typeormModule(settings: MicroframeworkBootstrapSettings) {
+export async function typeormModule(settings: MicroframeworkSettings) {
     const connection = await createConnection({
         driver: {
             type: "mysql",
@@ -12,5 +12,5 @@ export async function typeormModule(settings: MicroframeworkBootstrapSettings) {
         }
     });
 
-    settings.addShutdownHandler(() => connection.close());
+    settings.onShutdown(() => connection.close());
 }

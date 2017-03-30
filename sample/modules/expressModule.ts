@@ -1,8 +1,8 @@
 import * as express from "express";
-import {MicroframeworkBootstrapSettings} from "../../src/MicroframeworkBootstrapSettings";
+import {MicroframeworkSettings} from "../../src/MicroframeworkSettings";
 import {Routes} from "../controllers/controllers";
 
-export function expressModule(settings: MicroframeworkBootstrapSettings) {
+export function expressModule(settings: MicroframeworkSettings) {
 
     // create express app
     const app = express();

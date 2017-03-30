@@ -6,10 +6,10 @@ import {MicroframeworkModule} from "./MicroframeworkModule";
 // Handy Exports
 // -------------------------------------------------------------------------
 
-export * from "./MicroframeworkBootstrapSettings";
+export * from "./MicroframeworkSettings";
 export * from "./Microframework";
 export * from "./MicroframeworkModule";
-export * from "./MicroframeworkShutdownHandler";
+export * from "./ShutdownHandler";
 export * from "./MicroframeworkConfig";
 
 // -------------------------------------------------------------------------

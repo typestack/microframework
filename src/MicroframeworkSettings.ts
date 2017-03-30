@@ -1,11 +1,11 @@
-import {MicroframeworkShutdownHandler} from "./MicroframeworkShutdownHandler";
+import {ShutdownHandler} from "./ShutdownHandler";
 
 /**
  * Bootstrap settings used across all modules.
  * Used to register shutdown handlers - special functions that will be executed when framework is shutdown.
  * Also can be used to store and share data across modules.
  */
-export class MicroframeworkBootstrapSettings {
+export class MicroframeworkSettings {
 
     // -------------------------------------------------------------------------
     // Private Properties
@@ -19,7 +19,7 @@ export class MicroframeworkBootstrapSettings {
     /**
      * Special functions that will be executed when framework is shutdown.
      */
-    private shutdownHandlers: MicroframeworkShutdownHandler[] = [];
+    private shutdownHandlers: ShutdownHandler[] = [];
 
     // -------------------------------------------------------------------------
     // Public Methods
@@ -43,7 +43,7 @@ export class MicroframeworkBootstrapSettings {
     /**
      * Adds a shutdown handler - special function that will be executed when framework is shutdown.
      */
-    addShutdownHandler(handler: MicroframeworkShutdownHandler): this {
+    onShutdown(handler: ShutdownHandler): this {
         this.shutdownHandlers.push(handler);
         return this;
     }
@@ -51,7 +51,7 @@ export class MicroframeworkBootstrapSettings {
     /**
      * Gets all shutdown handlers - special functions that will be executed when framework is shutdown.
      */
-    getShutdownHandlers(): MicroframeworkShutdownHandler[] {
+    getShutdownHandlers(): ShutdownHandler[] {
         return this.shutdownHandlers.map(handlers => handlers);
     }
 

@@ -6,6 +6,8 @@ export interface MicroframeworkConfig {
     /**
      * Logo needs to be used before application launches.
      * To use logo ansi-art module should be installed.
+     *
+     * @experimental
      */
     logo?: string;
 

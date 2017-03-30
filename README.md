@@ -14,9 +14,9 @@ npm i microframework
 Second, create a simple "module" named `expressModule`:
 
 ```typescript
-import {MicroframeworkBootstrapSettings} from "microframework";
+import {MicroframeworkSettings} from "microframework";
 
-export function expressModule(settings: MicroframeworkBootstrapSettings) {
+export function expressModule(settings: MicroframeworkSettings) {
 
     // create express app
     const app = express();
@@ -83,9 +83,9 @@ For such purpose you can store the data in `settings` object passed to each modu
 and use stored data across all other modules. For example:
 
 ```typescript
-import {MicroframeworkBootstrapSettings} from "microframework";
+import {MicroframeworkSettings} from "microframework";
 
-export function expressModule(settings: MicroframeworkBootstrapSettings) {
+export function expressModule(settings: MicroframeworkSettings) {
 
     // create express app
     const app = express();
@@ -104,9 +104,9 @@ export function expressModule(settings: MicroframeworkBootstrapSettings) {
 And another modules can use data this way:
 
 ```typescript
-import {MicroframeworkBootstrapSettings} from "microframework";
+import {MicroframeworkSettings} from "microframework";
 
-export function socketIoModule(settings: MicroframeworkBootstrapSettings) {
+export function socketIoModule(settings: MicroframeworkSettings) {
     const io = io();
     io.useExpress(settings.getData("express_app"));
 }
@@ -145,7 +145,7 @@ bootstrapMicroframework({
 All modules which use resources should release them, for example:
 
 ```typescript
-export async function typeormModule(settings: MicroframeworkBootstrapSettings) {
+export async function typeormModule(settings: MicroframeworkSettings) {
     const connection = await createConnection({
         driver: {
             type: "mysql",
@@ -156,6 +156,6 @@ export async function typeormModule(settings: MicroframeworkBootstrapSettings) {
         }
     });
 
-    settings.addShutdownHandler(() => connection.close());
+    settings.onShutdown(() => connection.close());
 }
 ```
