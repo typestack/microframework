@@ -9,8 +9,8 @@ bootstrapMicroframework({
         showBootstrapTime: true, // completely optional
     },
     modules: [
-        winstonModule,
         expressModule,
+        winstonModule,
         typeormModule, // comment this module if you don't have database to setup connection with
 
         // here we can setup other databases, any other lib we want to setup in our application

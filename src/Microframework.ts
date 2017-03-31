@@ -27,7 +27,7 @@ export class Microframework {
      * Stores all settings of modules bootstrapped by microframework.
      * If its undefined it means framework is not bootstrapped yet.
      */
-    private settings?: MicroframeworkSettings;
+    private frameworkSettings?: MicroframeworkSettings;
 
     // -------------------------------------------------------------------------
     // Public Methods
@@ -103,13 +103,24 @@ export class Microframework {
      * Shutdowns all modules.
      */
     shutdown(): Promise<this> {
-        if (!this.settings)
+        if (!this.frameworkSettings)
             throw new MicroframeworkNotBootstrappedError();
 
-        return this.runInSequence(this.settings.getShutdownHandlers(), handler => {
+        return this.runInSequence(this.frameworkSettings.getShutdownHandlers(), handler => {
             const handlerResult = handler();
             return handlerResult instanceof Promise ? handlerResult : Promise.resolve();
         }).then(() => this);
+    }
+
+    /**
+     * Returns microframework settings used and modified by bootstrapped modules.
+     * If framework was not bootstrapped yet, this accessor will throw an error.
+     */
+    get settings(): MicroframeworkSettings {
+        if (!this.frameworkSettings)
+            throw new MicroframeworkNotBootstrappedError();
+
+        return this.frameworkSettings;
     }
 
     // -------------------------------------------------------------------------

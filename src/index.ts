@@ -11,6 +11,7 @@ export * from "./Microframework";
 export * from "./MicroframeworkModule";
 export * from "./ShutdownHandler";
 export * from "./MicroframeworkConfig";
+export * from "./MicroframeworkBootstrapConfig";
 
 // -------------------------------------------------------------------------
 // Facade functions
