@@ -19,6 +19,11 @@ export class Microframework {
     private frameworkConfig?: MicroframeworkConfig;
 
     /**
+     * Stores configurations from all configuration files provided to microframework.
+     */
+    private allConfiguration: any = {};
+
+    /**
      * Stores all registered microframework loaders.
      */
     private loaders: MicroframeworkLoader[] = [];
@@ -36,8 +41,23 @@ export class Microframework {
     /**
      * Configs microframework.
      */
-    config(config: MicroframeworkConfig): this {
-        this.frameworkConfig = config;
+    config(config: MicroframeworkConfig|string|string[]): this {
+
+        const appRootDir = require("app-root-path").path;
+        if (config instanceof String) {
+            this.allConfiguration = require(appRootDir + "/" + config + ".json") || {};
+            if (this.allConfiguration.microframework)
+                this.frameworkConfig = this.allConfiguration.microframework;
+
+        } else if (config instanceof Array) { // string[]
+            if (config.length > 0) {
+                this.allConfiguration = {};
+                Object.assign(this.allConfiguration, ...config.map(conf => require(appRootDir + "/" + conf + ".json") || {}));
+            }
+        } else {
+            this.frameworkConfig = config;
+        }
+
         return this;
     }
 
@@ -77,7 +97,7 @@ export class Microframework {
      * Bootstraps microframework and loads all loaders.
      */
     bootstrap(): Promise<this> {
-        const settings = new MicroframeworkSettings();
+        const settings = new MicroframeworkSettings(this.allConfiguration);
         const bootstrapTime = +new Date();
 
         return this.generateLogo()
