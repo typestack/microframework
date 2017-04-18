@@ -1,8 +1,8 @@
 import {MicroframeworkSettings} from "./MicroframeworkSettings";
 
 /**
- * Microframework module is some functionality needs to be executed in order.
+ * Microframework loader is a function that executes in order on microframework bootstrap.
  */
-export interface MicroframeworkModule {
+export interface MicroframeworkLoader {
     (options?: MicroframeworkSettings): Promise<any>|any;
 }

@@ -1,6 +1,6 @@
 import {Microframework} from "./Microframework";
 import {MicroframeworkBootstrapConfig} from "./MicroframeworkBootstrapConfig";
-import {MicroframeworkModule} from "./MicroframeworkModule";
+import {MicroframeworkLoader} from "./MicroframeworkLoader";
 
 // -------------------------------------------------------------------------
 // Handy Exports
@@ -8,7 +8,7 @@ import {MicroframeworkModule} from "./MicroframeworkModule";
 
 export * from "./MicroframeworkSettings";
 export * from "./Microframework";
-export * from "./MicroframeworkModule";
+export * from "./MicroframeworkLoader";
 export * from "./ShutdownHandler";
 export * from "./MicroframeworkConfig";
 export * from "./MicroframeworkBootstrapConfig";
@@ -25,15 +25,15 @@ export function bootstrapMicroframework(config: MicroframeworkBootstrapConfig): 
 /**
  * Creates a new microframework instance that can be configured and launched.
  */
-export function bootstrapMicroframework(modules: MicroframeworkModule[]): Promise<Microframework>;
+export function bootstrapMicroframework(modules: MicroframeworkLoader[]): Promise<Microframework>;
 
 /**
  * Creates a new microframework instance that can be configured and launched.
  */
-export function bootstrapMicroframework(configOrModules: MicroframeworkBootstrapConfig|MicroframeworkModule[]): Promise<Microframework> {
-    const bootstrapConfig: MicroframeworkBootstrapConfig = configOrModules instanceof Array ? { modules: configOrModules } : configOrModules;
+export function bootstrapMicroframework(configOrModules: MicroframeworkBootstrapConfig|MicroframeworkLoader[]): Promise<Microframework> {
+    const bootstrapConfig: MicroframeworkBootstrapConfig = configOrModules instanceof Array ? { loaders: configOrModules } : configOrModules;
     return new Microframework()
         .config(bootstrapConfig.config)
-        .registerModules(bootstrapConfig.modules)
+        .registerLoaders(bootstrapConfig.loaders)
         .bootstrap();
 }

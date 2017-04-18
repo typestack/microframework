@@ -1,5 +1,5 @@
 import {MicroframeworkSettings} from "./MicroframeworkSettings";
-import {MicroframeworkModule} from "./MicroframeworkModule";
+import {MicroframeworkLoader} from "./MicroframeworkLoader";
 import {MicroframeworkConfig} from "./MicroframeworkConfig";
 import {MicroframeworkNotBootstrappedError} from "./error/MicroframeworkNotBootstrappedError";
 import {MicroframeworkAsciiArtNotInstalledError} from "./error/MicroframeworkAsciiArtNotInstalledError";
@@ -19,12 +19,12 @@ export class Microframework {
     private frameworkConfig?: MicroframeworkConfig;
 
     /**
-     * Stores all registered microframework modules.
+     * Stores all registered microframework loaders.
      */
-    private modules: MicroframeworkModule[] = [];
+    private loaders: MicroframeworkLoader[] = [];
 
     /**
-     * Stores all settings of modules bootstrapped by microframework.
+     * Stores all settings of loaders bootstrapped by microframework.
      * If its undefined it means framework is not bootstrapped yet.
      */
     private frameworkSettings?: MicroframeworkSettings;
@@ -42,39 +42,39 @@ export class Microframework {
     }
 
     /**
-     * Registers module in the framework.
+     * Registers loader in the framework.
      */
-    registerModule(module: MicroframeworkModule): this {
-        this.modules.push(module);
+    registerLoader(loader: MicroframeworkLoader): this {
+        this.loaders.push(loader);
         return this;
     }
 
     /**
-     * Registers modules in the framework.
+     * Registers loaders in the framework.
      */
-    registerModules(modules: MicroframeworkModule[]): this;
+    registerLoaders(loaders: MicroframeworkLoader[]): this;
 
     /**
-     * Registers modules in the framework.
+     * Registers loaders in the framework.
      */
-    registerModules(...modules: MicroframeworkModule[]): this;
+    registerLoaders(...loaders: MicroframeworkLoader[]): this;
 
     /**
-     * Registers modules in the framework.
+     * Registers loaders in the framework.
      */
-    registerModules(modules: any /* MicroframeworkModule[]|MicroframeworkModule[][] */): this {
-        ((modules as any[]) || []).forEach(module => {
-            if (module instanceof Array) {
-                this.modules.push(...module);
+    registerLoaders(loaders: any /* MicroframeworkModule[]|MicroframeworkModule[][] */): this {
+        ((loaders as any[]) || []).forEach(loader => {
+            if (loader instanceof Array) {
+                this.loaders.push(...loader);
             } else {
-                this.modules.push(module);
+                this.loaders.push(loader);
             }
         });
         return this;
     }
 
     /**
-     * Bootstraps all modules.
+     * Bootstraps microframework and loads all loaders.
      */
     bootstrap(): Promise<this> {
         const settings = new MicroframeworkSettings();
@@ -86,9 +86,9 @@ export class Microframework {
                 return this.createBootstrapTimeout();
 
             }).then(() => {
-                return this.runInSequence(this.modules, module => {
-                    const moduleResult = module(settings);
-                    return moduleResult instanceof Promise ? moduleResult : Promise.resolve();
+                return this.runInSequence(this.loaders, loader => {
+                    const loaderResult = loader(settings);
+                    return loaderResult instanceof Promise ? loaderResult : Promise.resolve();
                 });
 
             }).then(() => {
@@ -100,7 +100,7 @@ export class Microframework {
     }
 
     /**
-     * Shutdowns all modules.
+     * Shutdowns microframework and everything loaders registered for shutdown.
      */
     shutdown(): Promise<this> {
         if (!this.frameworkSettings)
@@ -113,7 +113,7 @@ export class Microframework {
     }
 
     /**
-     * Returns microframework settings used and modified by bootstrapped modules.
+     * Returns microframework settings used and modified by bootstrapped loaders.
      * If framework was not bootstrapped yet, this accessor will throw an error.
      */
     get settings(): MicroframeworkSettings {

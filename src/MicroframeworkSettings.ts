@@ -1,7 +1,7 @@
 import {ShutdownHandler} from "./ShutdownHandler";
 
 /**
- * Bootstrap settings used across all modules.
+ * Bootstrap settings used across all loader.
  * Used to register shutdown handlers - special functions that will be executed when framework is shutdown.
  * Also can be used to store and share data across modules.
  */

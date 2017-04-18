@@ -1,5 +1,5 @@
 import {MicroframeworkConfig} from "./MicroframeworkConfig";
-import {MicroframeworkModule} from "./MicroframeworkModule";
+import {MicroframeworkLoader} from "./MicroframeworkLoader";
 
 /**
  * Microframework bootstrap configuration.
@@ -8,12 +8,14 @@ export interface MicroframeworkBootstrapConfig {
 
     /**
      * Microframework configuration.
+     * Can be file name, or array of file names from where to read configuration.
+     * File should be relative to package.json of the project (project root).
      */
-    config?: MicroframeworkConfig;
+    config?: MicroframeworkConfig|string|string[];
 
     /**
-     * Modules needs to be registered in microframework.
+     * Loaders to be registered in microframework and executed on microframework bootstrap.
      */
-    modules?: MicroframeworkModule[];
+    loaders?: MicroframeworkLoader[];
 
 }
