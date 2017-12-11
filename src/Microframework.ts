@@ -97,7 +97,7 @@ export class Microframework {
      * Bootstraps microframework and loads all loaders.
      */
     bootstrap(): Promise<this> {
-        const settings = new MicroframeworkSettings(this.allConfiguration);
+        this.frameworkSettings = new MicroframeworkSettings(this.allConfiguration);
         const bootstrapTime = +new Date();
 
         return this.generateLogo()
@@ -107,7 +107,7 @@ export class Microframework {
 
             }).then(() => {
                 return this.runInSequence(this.loaders, loader => {
-                    const loaderResult = loader(settings);
+                    const loaderResult = loader(this.frameworkSettings);
                     return loaderResult instanceof Promise ? loaderResult : Promise.resolve();
                 });
 
