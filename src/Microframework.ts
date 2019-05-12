@@ -108,7 +108,11 @@ export class Microframework {
             }).then(() => {
                 return this.runInSequence(this.loaders, loader => {
                     const loaderResult = loader(settings);
-                    return loaderResult instanceof Promise ? loaderResult : Promise.resolve();
+                    if (loaderResult != null && typeof loaderResult.then !== "function") {
+                        return loaderResult;
+                    } else {
+                        return Promise.resolve();
+                    }
                 });
 
             }).then(() => {
