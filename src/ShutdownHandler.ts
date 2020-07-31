@@ -3,5 +3,5 @@
  * Function can return a Promise, and in the case if it will return a Promise, shutdown function will wait until its resolved.
  */
 export interface ShutdownHandler {
-    (): Promise<any>|any;
+  (): Promise<any> | any;
 }
