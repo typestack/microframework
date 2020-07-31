@@ -44,12 +44,12 @@ export class Microframework {
     config(config: MicroframeworkConfig|string|string[]): this {
 
         const appRootDir = require("app-root-path").path;
-        if (config instanceof String) {
+        if (typeof config == 'string') {
             this.allConfiguration = require(appRootDir + "/" + config + ".json") || {};
             if (this.allConfiguration.microframework)
                 this.frameworkConfig = this.allConfiguration.microframework;
 
-        } else if (config instanceof Array) { // string[]
+        } else if (Array.isArray(config)) { // string[]
             if (config.length > 0) {
                 this.allConfiguration = {};
                 Object.assign(this.allConfiguration, ...config.map(conf => require(appRootDir + "/" + conf + ".json") || {}));
