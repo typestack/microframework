@@ -29,8 +29,6 @@
     "ascii-art": "^2.5.0",
     "express": "^4.17.1",
     "mysql": "^2.18.1",
-    "tslint": "^4.5.1",
-    "tslint-stylish": "^2.1.0",
     "typeorm": "^0.2.25",
     "typescript": "^3.9.7",
     "winston": "^3.3.3"
